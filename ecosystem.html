@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FlagOS 扩展生态 - 了解我们的开发者工具、框架增强和推理服务">
+    <meta name="keywords" content="FlagOS, 扩展生态, 开发者工具, 框架增强, 推理服务, TritonCopilot, libtriton_jit">
+    <meta name="author" content="FlagOS 开源社区">
+    <meta property="og:title" content="扩展生态 - FlagOS">
+    <meta property="og:description" content="了解 FlagOS 的开发者工具、框架增强和推理服务">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.flagos.net/ecosystem">
+    <link rel="canonical" href="https://www.flagos.net/ecosystem">
+    <title>扩展生态 - FlagOS</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="alternate" href="https://www.flagos.net/en/ecosystem" hreflang="en" />
+    <link rel="alternate" href="https://www.flagos.net/zh/ecosystem" hreflang="zh-CN" />
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>FlagOS</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于 FlagOS</a></li>
+                <li><a href="components.html">核心组件</a></li>
+                <li><a href="ecosystem.html" class="active">扩展生态</a></li>
+                <li><a href="docs.html">文档中心</a></li>
+                <li><a href="models.html">模型仓库</a></li>
+                <li><a href="community.html">社区中心</a></li>
+                <li><a href="partners.html">合作伙伴</a></li>
+                <li><a href="news.html">新闻动态</a></li>
+                <li><a href="contact.html">联系我们</a></li>
+            </ul>
+            <div class="language-switcher">
+                <a href="#" class="active">中文</a>
+                <span>/</span>
+                <a href="#">English</a>
+            </div>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <section class="ecosystem-intro">
+            <div class="container">
+                <h2>扩展生态</h2>
+                <p>FlagOS 扩展生态包含丰富的开发者工具、框架增强、推理与服务组件以及社区资源，为跨芯片 AI 开发提供全面支持。</p>
+            </div>
+        </section>
+
+        <section class="ecosystem-overview">
+            <div class="container">
+                <h3>生态系统概览</h3>
+                <div class="ecosystem-diagram">
+                    <div class="ecosystem-layer">
+                        <h4>应用层</h4>
+                        <div class="layer-components">
+                            <span>大模型应用</span>
+                            <span>多模态应用</span>
+                            <span>具身智能应用</span>
+                        </div>
+                    </div>
+                    <div class="ecosystem-layer">
+                        <h4>服务层</h4>
+                        <div class="layer-components">
+                            <span>vllm-FL</span>
+                            <span>vllm-plugin-FL</span>
+                        </div>
+                    </div>
+                    <div class="ecosystem-layer">
+                        <h4>框架增强层</h4>
+                        <div class="layer-components">
+                            <span>Megatron-LM-FL</span>
+                            <span>TransformerEngine-FL</span>
+                        </div>
+                    </div>
+                    <div class="ecosystem-layer">
+                        <h4>工具层</h4>
+                        <div class="layer-components">
+                            <span>TritonCopilot</span>
+                            <span>libtriton_jit</span>
+                            <span>EasyOfUse</span>
+                        </div>
+                    </div>
+                    <div class="ecosystem-layer">
+                        <h4>核心组件层</h4>
+                        <div class="layer-components">
+                            <span>FlagGEMs</span>
+                            <span>FlagTree</span>
+                            <span>FlagScale</span>
+                            <span>FlagCX</span>
+                            <span>FlagPerf</span>
+                            <span>FlagRelease</span>
+                            <span>Triton-Copilot</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="developer-tools">
+            <div class="container">
+                <h3>开发者工具 & 实用程序</h3>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h4>TritonCopilot</h4>
+                        <p>下一代 AI 辅助内核工程工具，为多芯片系统开发提供智能支持</p>
+                        <a href="https://github.com/flagos-ai/triton-copilot" target="_blank" class="btn btn-primary">GitHub 源码</a>
+                    </div>
+                    <div class="tool-card">
+                        <h4>libtriton_jit</h4>
+                        <p>Triton JIT C++ 运行时，减少 Python 开销，提升执行效率</p>
+                        <a href="https://github.com/flagos-ai/libtriton_jit" target="_blank" class="btn btn-primary">GitHub 源码</a>
+                    </div>
+                    <div class="tool-card">
+                        <h4>EasyOfUse</h4>
+                        <p>简化开放计算开发，提供即插即用解决方案和最佳实践</p>
+                        <a href="https://github.com/flagos-ai/easyofuse" target="_blank" class="btn btn-primary">GitHub 源码</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="framework-enhancements">
+            <div class="container">
+                <h3>框架增强</h3>
+                <div class="frameworks-grid">
+                    <div class="framework-card">
+                        <h4>Megatron-LM-FL</h4>
+                        <p>GPU 优化库，用于大规模训练 transformer 模型，提升训练效率</p>
+                        <a href="https://github.com/flagos-ai/megatron-lm-fl" target="_blank" class="btn btn-primary">GitHub 源码</a>
+                    </div>
+                    <div class="framework-card">
+                        <h4>TransformerEngine-FL</h4>
+                        <p>FP8 混合精度训练库，用于 transformer 模型，提升训练速度和降低内存占用</p>
+                        <a href="https://github.com/flagos-ai/transformerengine-fl" target="_blank" class="btn btn-primary">GitHub 源码</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="inference-serving">
+            <div class="container">
+                <h3>推理与服务</h3>
+                <div class="inference-grid">
+                    <div class="inference-card">
+                        <h4>vllm-FL</h4>
+                        <p>基于 FlagOS 统一多芯片后端的 vLLM 插件，用于 LLM 服务</p>
+                        <a href="https://github.com/flagos-ai/vllm-fl" target="_blank" class="btn btn-primary">GitHub 源码</a>
+                    </div>
+                    <div class="inference-card">
+                        <h4>vllm-plugin-FL</h4>
+                        <p>高级 vLLM 插件，增强多芯片支持，提升 LLM 服务性能</p>
+                        <a href="https://github.com/flagos-ai/vllm-plugin-fl" target="_blank" class="btn btn-primary">GitHub 源码</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="community-resources">
+            <div class="container">
+                <h3>社区资源</h3>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <h4>FlagOS Community</h4>
+                        <p>FlagOS 社区治理、贡献指南和沟通中心</p>
+                        <a href="https://github.com/flagos-ai/community" target="_blank" class="btn btn-primary">GitHub 源码</a>
+                    </div>
+                    <div class="resource-card">
+                        <h4>FlagOS Wiki</h4>
+                        <p>FlagOS 知识库，包含详细的技术文档和使用指南</p>
+                        <a href="#" class="btn btn-primary">访问 Wiki</a>
+                    </div>
+                    <div class="resource-card">
+                        <h4>GitHub Discussions</h4>
+                        <p>FlagOS 社区讨论区，与开发者交流和分享经验</p>
+                        <a href="https://github.com/flagos-ai/discussions" target="_blank" class="btn btn-primary">参与讨论</a>
+                    </div>
+                    <div class="resource-card">
+                        <h4>Slack 国际社群</h4>
+                        <p>FlagOS 国际社区，与全球开发者交流</p>
+                        <a href="#" class="btn btn-primary">加入社群</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ecosystem-partners">
+            <div class="container">
+                <h3>生态合作伙伴</h3>
+                <div class="partners-logos">
+                    <span>PyTorch 基金会</span>
+                    <span>ModelScope</span>
+                    <span>Hugging Face</span>
+                    <span>ITU</span>
+                    <span>联合国 Open for SDG</span>
+                    <span>北京人工智能公共算力平台</span>
+                    <span>Kaggle</span>
+                    <span>天池</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>全球资源链接</h4>
+                    <div class="resources-links">
+                        <div class="link-category">
+                            <h5>开源平台</h5>
+                            <ul>
+                                <li><a href="https://github.com/flagos-ai" target="_blank">GitHub：flagos-ai</a></li>
+                                <li><a href="#" target="_blank">ModelScope FlagRelease</a></li>
+                                <li><a href="#" target="_blank">Hugging Face FlagRelease</a></li>
+                                <li><a href="https://triton-copilot.baai.ac.cn/" target="_blank">Triton-Copilot</a></li>
+                            </ul>
+                        </div>
+                        <div class="link-category">
+                            <h5>社区渠道</h5>
+                            <ul>
+                                <li><a href="#">微信公众号：FlagOpen</a></li>
+                                <li><a href="#">CSDN 专栏</a></li>
+                                <li><a href="#" target="_blank">Slack 国际社群</a></li>
+                                <li><a href="https://github.com/flagos-ai/discussions" target="_blank">GitHub Discussions</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>基金会信息</h4>
+                    <div class="foundation-info">
+                        <p><strong>成立背景：</strong>打破 AI 芯片生态碎片化</p>
+                        <p><strong>核心成员：</strong>社区秘书长朱其罡</p>
+                        <p><strong>联系方式：</strong>商务合作邮箱 contact@flagos.io</p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>法律与协议</h4>
+                    <div class="legal-links">
+                        <ul>
+                            <li><a href="#">开源协议：Apache 2.0</a></li>
+                            <li><a href="#">代码规范：Contributor Covenant</a></li>
+                            <li><a href="#">隐私政策</a></li>
+                            <li><a href="#">贡献协议</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FlagOS 开源社区. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+</body>
+</html>

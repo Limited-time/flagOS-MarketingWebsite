@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FlagOS 模型仓库 - 提供丰富的模型资源，支持按芯片类型、模型类型和任务类型筛选">
+    <meta name="keywords" content="FlagOS, 模型仓库, 语言模型, 多模态模型, 具身智能模型, 模型搜索">
+    <meta name="author" content="FlagOS 开源社区">
+    <meta property="og:title" content="模型仓库 - FlagOS">
+    <meta property="og:description" content="FlagOS 模型仓库，提供丰富的模型资源">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.flagos.net/models">
+    <link rel="canonical" href="https://www.flagos.net/models">
+    <title>模型仓库 - FlagOS</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="alternate" href="https://www.flagos.net/en/models" hreflang="en" />
+    <link rel="alternate" href="https://www.flagos.net/zh/models" hreflang="zh-CN" />
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>FlagOS</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于 FlagOS</a></li>
+                <li><a href="components.html">核心组件</a></li>
+                <li><a href="ecosystem.html">扩展生态</a></li>
+                <li><a href="docs.html">文档中心</a></li>
+                <li><a href="models.html" class="active">模型仓库</a></li>
+                <li><a href="community.html">社区中心</a></li>
+                <li><a href="partners.html">合作伙伴</a></li>
+                <li><a href="news.html">新闻动态</a></li>
+                <li><a href="contact.html">联系我们</a></li>
+            </ul>
+            <div class="language-switcher">
+                <a href="#" class="active">中文</a>
+                <span>/</span>
+                <a href="#">English</a>
+            </div>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <section class="models-intro">
+            <div class="container">
+                <h2>模型仓库</h2>
+                <p>FlagOS 模型仓库支持 100+ 开源模型跨芯发布，迁移效率提升 4 倍，为开发者提供便捷的模型获取和适配服务。</p>
+            </div>
+        </section>
+
+        <section class="models-search">
+            <div class="container">
+                <h3>模型搜索</h3>
+                <div class="search-filters">
+                    <div class="filter-group">
+                        <label for="chip-type">芯片类型</label>
+                        <select id="chip-type">
+                            <option value="all">全部</option>
+                            <option value="huawei">华为昇腾</option>
+                            <option value="cambricon">寒武纪</option>
+                            <option value="haiguang">海光</option>
+                            <option value="kunlun">昆仑芯</option>
+                            <option value="moore">摩尔线程</option>
+                            <option value="nvidia">英伟达</option>
+                            <option value="arm">ARM</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="model-type">模型类型</label>
+                        <select id="model-type">
+                            <option value="all">全部</option>
+                            <option value="llm">语言模型</option>
+                            <option value="multimodal">多模态模型</option>
+                            <option value="embodied">具身智能模型</option>
+                            <option value="new-arch">新架构模型</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="task-type">任务类型</label>
+                        <select id="task-type">
+                            <option value="all">全部</option>
+                            <option value="text-generation">文本生成</option>
+                            <option value="image-generation">图像生成</option>
+                            <option value="image-understanding">图像理解</option>
+                            <option value="text-classification">文本分类</option>
+                            <option value="question-answering">问答系统</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <button type="button" class="btn btn-primary">搜索</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="models-overview">
+            <div class="container">
+                <h3>模型分类</h3>
+                <div class="models-categories">
+                    <div class="category-card">
+                        <h4>语言模型</h4>
+                        <p>支持多种大语言模型，包括 Qwen、DeepSeek、GLM4.5、GPT-oss、Llama 等</p>
+                        <a href="#language-models" class="btn btn-primary">查看模型</a>
+                    </div>
+                    <div class="category-card">
+                        <h4>多模态模型</h4>
+                        <p>支持图像-文本、音频-文本等多模态模型，包括 Qwen-VL、ERNIE4.5、Llava 系列等</p>
+                        <a href="#multimodal-models" class="btn btn-primary">查看模型</a>
+                    </div>
+                    <div class="category-card">
+                        <h4>具身智能模型</h4>
+                        <p>支持机器人、智能体等具身智能模型，包括智源 EMU、RoboBrain2.0、面壁 CPM 等</p>
+                        <a href="#embodied-models" class="btn btn-primary">查看模型</a>
+                    </div>
+                    <div class="category-card">
+                        <h4>新架构模型</h4>
+                        <p>支持 RWKV、Diffusion 系列等新架构模型</p>
+                        <a href="#new-arch-models" class="btn btn-primary">查看模型</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="language-models" class="models-list">
+            <div class="container">
+                <h3>语言模型</h3>
+                <div class="models-grid">
+                    <div class="model-card">
+                        <h4>Qwen2.5-7B</h4>
+                        <p>通义千问 2.5 版本，7B 参数的大语言模型，具有出色的文本生成能力</p>
+                        <div class="model-stats">
+                            <span>适配芯片：11 款</span>
+                            <span>推理提速：40%</span>
+                            <span>迁移效率：4 倍</span>
+                        </div>
+                        <div class="model-actions">
+                            <a href="#" class="btn btn-outline">查看详情</a>
+                            <a href="#" class="btn btn-primary">获取代码</a>
+                            <a href="#" class="btn btn-secondary">在线试用</a>
+                        </div>
+                    </div>
+                    <div class="model-card">
+                        <h4>DeepSeek-R1</h4>
+                        <p>深度求索发布的开源大语言模型，具有优秀的代码生成和推理能力</p>
+                        <div class="model-stats">
+                            <span>适配芯片：10 款</span>
+                            <span>推理提速：35%</span>
+                            <span>迁移效率：3.5 倍</span>
+                        </div>
+                        <div class="model-actions">
+                            <a href="#" class="btn btn-outline">查看详情</a>
+                            <a href="#" class="btn btn-primary">获取代码</a>
+                            <a href="#" class="btn btn-secondary">在线试用</a>
+                        </div>
+                    </div>
+                    <div class="model-card">
+                        <h4>GLM4.5</h4>
+                        <p>智谱 GLM 4.5 版本，具有强大的多语言和多模态能力</p>
+                        <div class="model-stats">
+                            <span>适配芯片：9 款</span>
+                            <span>推理提速：38%</span>
+                            <span>迁移效率：3.8 倍</span>
+                        </div>
+                        <div class="model-actions">
+                            <a href="#" class="btn btn-outline">查看详情</a>
+                            <a href="#" class="btn btn-primary">获取代码</a>
+                            <a href="#" class="btn btn-secondary">在线试用</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="multimodal-models" class="models-list">
+            <div class="container">
+                <h3>多模态模型</h3>
+                <div class="models-grid">
+                    <div class="model-card">
+                        <h4>Qwen-VL</h4>
+                        <p>通义千问多模态模型，支持图像理解和多模态对话</p>
+                        <div class="model-stats">
+                            <span>适配芯片：8 款</span>
+                            <span>推理提速：30%</span>
+                            <span>迁移效率：3 倍</span>
+                        </div>
+                        <div class="model-actions">
+                            <a href="#" class="btn btn-outline">查看详情</a>
+                            <a href="#" class="btn btn-primary">获取代码</a>
+                            <a href="#" class="btn btn-secondary">在线试用</a>
+                        </div>
+                    </div>
+                    <div class="model-card">
+                        <h4>ERNIE4.5</h4>
+                        <p>百度文心一言 4.5 版本，具有强大的多模态理解和生成能力</p>
+                        <div class="model-stats">
+                            <span>适配芯片：7 款</span>
+                            <span>推理提速：28%</span>
+                            <span>迁移效率：2.8 倍</span>
+                        </div>
+                        <div class="model-actions">
+                            <a href="#" class="btn btn-outline">查看详情</a>
+                            <a href="#" class="btn btn-primary">获取代码</a>
+                            <a href="#" class="btn btn-secondary">在线试用</a>
+                        </div>
+                    </div>
+                    <div class="model-card">
+                        <h4>Llava-1.6</h4>
+                        <p>开源多模态模型，将 Llama 与视觉模型结合，支持图像描述和问答</p>
+                        <div class="model-stats">
+                            <span>适配芯片：10 款</span>
+                            <span>推理提速：32%</span>
+                            <span>迁移效率：3.2 倍</span>
+                        </div>
+                        <div class="model-actions">
+                            <a href="#" class="btn btn-outline">查看详情</a>
+                            <a href="#" class="btn btn-primary">获取代码</a>
+                            <a href="#" class="btn btn-secondary">在线试用</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="model-platforms">
+            <div class="container">
+                <h3>模型平台联动</h3>
+                <p>FlagRelease 与主流模型平台深度集成，支持一键获取适配模型</p>
+                <div class="platforms-grid">
+                    <div class="platform-card">
+                        <h4>ModelScope</h4>
+                        <p>魔搭社区，国内领先的 AI 模型平台</p>
+                        <a href="#" target="_blank" class="btn btn-primary">访问 ModelScope</a>
+                    </div>
+                    <div class="platform-card">
+                        <h4>Hugging Face</h4>
+                        <p>全球最大的开源模型平台</p>
+                        <a href="#" target="_blank" class="btn btn-primary">访问 Hugging Face</a>
+                    </div>
+                    <div class="platform-card">
+                        <h4>WiseModel</h4>
+                        <p>智谱 AI 模型平台，提供丰富的大模型资源</p>
+                        <a href="#" target="_blank" class="btn btn-primary">访问 WiseModel</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>全球资源链接</h4>
+                    <div class="resources-links">
+                        <div class="link-category">
+                            <h5>开源平台</h5>
+                            <ul>
+                                <li><a href="https://github.com/flagos-ai" target="_blank">GitHub：flagos-ai</a></li>
+                                <li><a href="#" target="_blank">ModelScope FlagRelease</a></li>
+                                <li><a href="#" target="_blank">Hugging Face FlagRelease</a></li>
+                                <li><a href="https://triton-copilot.baai.ac.cn/" target="_blank">Triton-Copilot</a></li>
+                            </ul>
+                        </div>
+                        <div class="link-category">
+                            <h5>社区渠道</h5>
+                            <ul>
+                                <li><a href="#">微信公众号：FlagOpen</a></li>
+                                <li><a href="#">CSDN 专栏</a></li>
+                                <li><a href="#" target="_blank">Slack 国际社群</a></li>
+                                <li><a href="https://github.com/flagos-ai/discussions" target="_blank">GitHub Discussions</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>基金会信息</h4>
+                    <div class="foundation-info">
+                        <p><strong>成立背景：</strong>打破 AI 芯片生态碎片化</p>
+                        <p><strong>核心成员：</strong>社区秘书长朱其罡</p>
+                        <p><strong>联系方式：</strong>商务合作邮箱 contact@flagos.io</p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>法律与协议</h4>
+                    <div class="legal-links">
+                        <ul>
+                            <li><a href="#">开源协议：Apache 2.0</a></li>
+                            <li><a href="#">代码规范：Contributor Covenant</a></li>
+                            <li><a href="#">隐私政策</a></li>
+                            <li><a href="#">贡献协议</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FlagOS 开源社区. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+</body>
+</html>
