@@ -545,24 +545,33 @@ FlagOS 营销网站说明文档
 
 ```
 flagOS-MarketingWebsite/
-├── index.html              # 首页
-├── about.html              # 关于 FlagOS
-├── components.html         # 核心组件
-├── ecosystem.html          # 扩展生态
-├── docs.html               # 文档中心
-├── models.html             # 模型仓库
-├── community.html          # 社区中心
-├── partners.html           # 合作伙伴
-├── news.html               # 新闻动态
-├── contact.html            # 联系我们
-├── template.html           # 模板文件
+├── index.html                     # 首页
+├── about.html                     # 关于 FlagOS
+├── components.html                # 核心组件
+├── ecosystem.html                 # 扩展生态
+├── docs.html                      # 文档中心
+├── models.html                    # 模型仓库
+├── community.html                 # 社区中心
+├── partners.html                  # 合作伙伴
+├── news.html                      # 新闻动态
+├── contact.html                   # 联系我们
+├── template.html                  # 模板文件
 ├── css/
-│   └── styles.css          # 样式文件
+│   └── styles.css                 # 样式文件
 ├── js/
-│   └── script.js           # JavaScript 文件
-├── website-documentation.md # 网站说明文档
-├── flagOS.md               # 核心内容源
-└── website-structure.md    # 网站架构规划
+│   └── script.js                  # JavaScript 文件
+├── add-sidebar.ps1                # 侧边栏添加脚本
+├── add-sidebar-simple.ps1         # 简易侧边栏添加脚本
+├── add-sidebar-all.ps1            # 全页面侧边栏添加脚本
+├── validate_html.py               # HTML 验证脚本
+├── validate_all_html.py           # 全页面 HTML 验证脚本
+├── README.md                      # 项目说明文档
+├── website-documentation.md       # 网站说明文档
+├── website-structure.md           # 网站架构规划
+├── flagOS.md                      # 核心内容源
+├── FlagOS 开源商业产品营销计划书.pptx # 商业计划书
+├── 众智FlagOS  CN-1024.pdf        # FlagOS 宣传册
+└── 话稿.md                        # 演讲脚本
 ```
 
 ## 6. 维护指南
