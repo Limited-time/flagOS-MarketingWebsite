@@ -1,20 +1,182 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="FlagOS 合作伙伴 - 加入我们的生态，与全球领先企业共同构建 AI 跨芯片开源生态">
-    <meta name="keywords" content="FlagOS, 合作伙伴, 会员体系, 白金会员, 黄金会员, 白银会员">
+    <meta name="description" content="FlagOS 合作伙伴 - 了解 FlagOS 成员展示、分级权益对比表、合作案例和合作申请">
+    <meta name="keywords" content="FlagOS, 合作伙伴, 成员展示, 分级权益对比表, 合作案例, 合作申请">
     <meta name="author" content="FlagOS 开源社区">
-    <meta property="og:title" content="合作伙伴 - FlagOS">
-    <meta property="og:description" content="加入 FlagOS 生态，与全球领先企业共同构建 AI 跨芯片开源生态">
+    <meta property="og:title" content="FlagOS 合作伙伴 - AI 多芯片开源生态管理与性能平台">
+    <meta property="og:description" content="了解 FlagOS 成员展示、分级权益对比表、合作案例和合作申请">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.flagos.net/partners">
     <link rel="canonical" href="https://www.flagos.net/partners">
-    <title>合作伙伴 - FlagOS</title>
+    <title>FlagOS 合作伙伴 - AI 多芯片开源生态管理与性能平台</title>
     <link rel="stylesheet" href="css/styles.css">
+    <!-- 引入图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="alternate" href="https://www.flagos.net/en/partners" hreflang="en" />
     <link rel="alternate" href="https://www.flagos.net/zh/partners" hreflang="zh-CN" />
+    <style>
+        /* 全局搜索样式 */
+        .search-container {
+            position: relative;
+            margin: 0 16px;
+        }
+        
+        .search-input {
+            width: 200px;
+            padding: 10px 40px 10px 16px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 25px;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        .search-input:focus {
+            width: 250px;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        
+        .search-btn:hover {
+            color: #3b82f6;
+        }
+        
+        /* 暗黑模式切换样式 */
+        .theme-switcher {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+            margin: 0 16px;
+        }
+        
+        .theme-switcher input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .theme-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e1;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .theme-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .theme-slider {
+            background-color: #3b82f6;
+        }
+        
+        input:checked + .theme-slider:before {
+            transform: translateX(20px);
+        }
+        
+        /* 暗黑模式样式 */
+        body.dark-mode {
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+        
+        body.dark-mode .navbar {
+            background-color: rgba(15, 23, 42, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        body.dark-mode .navbar .logo h1 {
+            color: #3b82f6;
+        }
+        
+        body.dark-mode .nav-menu li a {
+            color: #94a3b8;
+        }
+        
+        body.dark-mode .nav-menu li a:hover {
+            color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        
+        body.dark-mode section {
+            background-color: #1e293b;
+        }
+        
+        body.dark-mode section:nth-child(even) {
+            background-color: #0f172a;
+        }
+        
+        body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 {
+            color: #f8fafc;
+        }
+        
+        body.dark-mode p, body.dark-mode li {
+            color: #cbd5e1;
+        }
+        
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .search-container {
+                margin: 16px 0;
+                width: 100%;
+            }
+            
+            .search-input {
+                width: 100%;
+            }
+            
+            .search-input:focus {
+                width: 100%;
+            }
+            
+            .theme-switcher {
+                margin: 0 8px;
+            }
+        }
+        
+        /* 响应式导航优化 */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                gap: 16px;
+            }
+            
+            .nav-menu li a {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- 导航栏 -->
@@ -23,66 +185,100 @@
             <div class="logo">
                 <h1>FlagOS</h1>
             </div>
-            <ul class="nav-menu">
-                <li><a href="index.html">首页</a></li>
-                <li><a href="about.html">关于 FlagOS</a></li>
-                <li><a href="components.html">核心组件</a></li>
-                <li><a href="ecosystem.html">扩展生态</a></li>
-                <li><a href="docs.html">文档中心</a></li>
-                <li><a href="models.html">模型仓库</a></li>
-                <li><a href="community.html">社区中心</a></li>
-                <li><a href="partners.html" class="active">合作伙伴</a></li>
-                <li><a href="news.html">新闻动态</a></li>
-                <li><a href="contact.html">联系我们</a></li>
-            </ul>
-            <div class="language-switcher">
-                <a href="#" class="active">中文</a>
-                <span>/</span>
-                <a href="#">English</a>
+            <div class="nav-container">
+                <ul class="nav-menu">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="about.html">关于 FlagOS</a></li>
+                    <li><a href="components.html">核心组件</a></li>
+                    <li><a href="ecosystem.html">开源生态</a></li>
+                    <li><a href="docs.html">文档中心</a></li>
+                    <li><a href="models.html">模型仓库</a></li>
+                    <li><a href="community.html">社区中心</a></li>
+                    <li><a href="partners.html" class="active">合作伙伴</a></li>
+                    <li><a href="news.html">新闻动态</a></li>
+                    <li><a href="contact.html">联系我们</a></li>
+                </ul>
+                
+                <!-- 全球搜索 -->
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="搜索组件、文档、模型..">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
             </div>
-            <div class="mobile-menu-btn">
-                <span></span>
-                <span></span>
-                <span></span>
+            
+            <div class="nav-actions">
+                <!-- 暗黑模式切换 -->
+                <label class="theme-switcher">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="theme-slider"></span>
+                </label>
+                
+                <div class="language-switcher">
+                    <a href="#" class="active">中文</a>
+                    <span>/</span>
+                    <a href="#">English</a>
+                </div>
+                
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
     </nav>
-
+    <!-- 侧边栏切换按钮 -->
+    <button class="sidebar-toggle" id="sidebar-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- 侧边栏 -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>页面导航</h3>
+        </div>
+        <ul class="sidebar-nav">
+            <li><a href="#partners-hero" class="active"><i class="fas fa-info-circle"></i> 合作伙伴介绍</a></li>
+            <li><a href="#members-showcase"><i class="fas fa-users"></i> 生态成员展示</a></li>
+            <li><a href="#membership-benefits"><i class="fas fa-gift"></i> 分级权益对比</a></li>
+            <li><a href="#success-cases"><i class="fas fa-book"></i> 合作案例</a></li>
+        </ul>
+    </aside>
     <!-- 主要内容区域 -->
     <main class="main-content">
-        <section class="partners-hero">
+        <section class="partners-hero" id="partners-hero">
             <div class="container">
                 <h2>合作伙伴</h2>
-                <p>加入 FlagOS 生态，与全球领先企业共同构建 AI 跨芯片开源生态</p>
+                <p>加入 FlagOS 生态，与全球领先企业共同构建 AI 多芯片开源生态</p>
             </div>
         </section>
 
-        <section class="members-showcase">
+        <section class="members-showcase" id="members-showcase">
             <div class="container">
-                <h3>生态会员展示</h3>
+                <h3>生态成员展示</h3>
                 
                 <div class="member-tier">
-                    <h4>白金会员</h4>
+                    <h4>铂金会员</h4>
                     <div class="member-logos">
                         <div class="member-logo">
-                            <img src="https://via.placeholder.com/120x60" alt="华为">
+                            <div class="member-icon"><i class="fas fa-building"></i></div>
                             <p>华为</p>
                         </div>
                         <div class="member-logo">
-                            <img src="https://via.placeholder.com/120x60" alt="寒武纪">
+                            <div class="member-icon"><i class="fas fa-microchip"></i></div>
                             <p>寒武纪</p>
                         </div>
                         <div class="member-logo">
-                            <img src="https://via.placeholder.com/120x60" alt="浪潮">
-                            <p>浪潮</p>
+                            <div class="member-icon"><i class="fas fa-server"></i></div>
+                            <p>曙光</p>
                         </div>
                         <div class="member-logo">
-                            <img src="https://via.placeholder.com/120x60" alt="百度">
+                            <div class="member-icon"><i class="fas fa-search"></i></div>
                             <p>百度</p>
                         </div>
                         <div class="member-logo">
-                            <img src="https://via.placeholder.com/120x60" alt="智源">
-                            <p>智源</p>
+                            <div class="member-icon"><i class="fas fa-brain"></i></div>
+                            <p>智谱</p>
                         </div>
                     </div>
                 </div>
@@ -91,23 +287,23 @@
                     <h4>黄金会员</h4>
                     <div class="member-logos">
                         <div class="member-logo">
-                            <img src="https://via.placeholder.com/100x50" alt="硅基流动">
-                            <p>硅基流动</p>
+                            <div class="member-icon"><i class="fas fa-industry"></i></div>
+                            <p>浪潮</p>
                         </div>
                         <div class="member-logo">
-                            <img src="https://via.placeholder.com/100x50" alt="中科加禾">
-                            <p>中科加禾</p>
+                            <div class="member-icon"><i class="fas fa-microchip"></i></div>
+                            <p>中科曙光</p>
                         </div>
                         <div class="member-logo">
-                            <img src="https://via.placeholder.com/100x50" alt="昆仑芯">
+                            <div class="member-icon"><i class="fas fa-microchip"></i></div>
                             <p>昆仑芯</p>
                         </div>
                         <div class="member-logo">
-                            <img src="https://via.placeholder.com/100x50" alt="摩尔线程">
+                            <div class="member-icon"><i class="fas fa-gpu"></i></div>
                             <p>摩尔线程</p>
                         </div>
                         <div class="member-logo">
-                            <img src="https://via.placeholder.com/100x50" alt="中国移动">
+                            <div class="member-icon"><i class="fas fa-mobile-alt"></i></div>
                             <p>中国移动</p>
                         </div>
                     </div>
@@ -117,29 +313,29 @@
                     <h4>白银会员</h4>
                     <div class="member-logos">
                         <div class="member-logo">
-                            <img src="https://via.placeholder.com/80x40" alt="中小企业">
+                            <div class="member-icon"><i class="fas fa-business-time"></i></div>
                             <p>中小企业</p>
                         </div>
                         <div class="member-logo">
-                            <img src="https://via.placeholder.com/80x40" alt="高校">
+                            <div class="member-icon"><i class="fas fa-university"></i></div>
                             <p>高校</p>
                         </div>
                         <div class="member-logo">
-                            <img src="https://via.placeholder.com/80x40" alt="科研机构">
-                            <p>科研机构</p>
+                            <div class="member-icon"><i class="fas fa-flask"></i></div>
+                            <p>研究机构</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="member-tier">
                     <h4>个人会员</h4>
-                    <p>全球近 2 万开发者</p>
+                    <p>全球超过 12 万开发者</p>
                     <a href="community.html" class="btn btn-secondary">加入社区</a>
                 </div>
             </div>
         </section>
 
-        <section class="membership-benefits">
+        <section class="membership-benefits" id="membership-benefits">
             <div class="container">
                 <h3>分级权益对比</h3>
                 <div class="benefits-table">
@@ -147,7 +343,7 @@
                         <thead>
                             <tr>
                                 <th>权益项目</th>
-                                <th>白金会员</th>
+                                <th>铂金会员</th>
                                 <th>黄金会员</th>
                                 <th>白银会员</th>
                                 <th>个人会员</th>
@@ -156,73 +352,73 @@
                         <tbody>
                             <tr>
                                 <td>标准制定话语权</td>
-                                <td>✓</td>
-                                <td>✗</td>
-                                <td>✗</td>
-                                <td>✗</td>
+                                <td>✅</td>
+                                <td>✅</td>
+                                <td>❌</td>
+                                <td>❌</td>
                             </tr>
                             <tr>
                                 <td>优先适配测试权</td>
-                                <td>✓</td>
-                                <td>✓</td>
-                                <td>✗</td>
-                                <td>✗</td>
+                                <td>✅</td>
+                                <td>✅</td>
+                                <td>✅</td>
+                                <td>❌</td>
                             </tr>
                             <tr>
                                 <td>品牌联合推广</td>
-                                <td>✓</td>
-                                <td>✓</td>
-                                <td>✗</td>
-                                <td>✗</td>
+                                <td>✅</td>
+                                <td>✅</td>
+                                <td>❌</td>
+                                <td>❌</td>
                             </tr>
                             <tr>
                                 <td>定制化技术支持</td>
-                                <td>✓</td>
-                                <td>✓</td>
-                                <td>✗</td>
-                                <td>✗</td>
+                                <td>✅</td>
+                                <td>✅</td>
+                                <td>❌</td>
+                                <td>❌</td>
                             </tr>
                             <tr>
                                 <td>人才推荐</td>
-                                <td>✓</td>
-                                <td>✓</td>
-                                <td>✗</td>
-                                <td>✓</td>
+                                <td>✅</td>
+                                <td>✅</td>
+                                <td>✅</td>
+                                <td>❌</td>
                             </tr>
                             <tr>
                                 <td>赛事冠名权益</td>
-                                <td>✓</td>
-                                <td>✓</td>
-                                <td>✗</td>
-                                <td>✗</td>
+                                <td>✅</td>
+                                <td>❌</td>
+                                <td>❌</td>
+                                <td>❌</td>
                             </tr>
                             <tr>
                                 <td>免费使用企业工具</td>
-                                <td>✓</td>
-                                <td>✓</td>
-                                <td>✓</td>
-                                <td>✗</td>
+                                <td>✅</td>
+                                <td>✅</td>
+                                <td>❌</td>
+                                <td>❌</td>
                             </tr>
                             <tr>
                                 <td>适配文档</td>
-                                <td>✓</td>
-                                <td>✓</td>
-                                <td>✓</td>
-                                <td>✓</td>
+                                <td>✅</td>
+                                <td>✅</td>
+                                <td>✅</td>
+                                <td>✅</td>
                             </tr>
                             <tr>
                                 <td>认证绿色通道</td>
-                                <td>✓</td>
-                                <td>✓</td>
-                                <td>✓</td>
-                                <td>✓</td>
+                                <td>✅</td>
+                                <td>✅</td>
+                                <td>✅</td>
+                                <td>❌</td>
                             </tr>
                             <tr>
                                 <td>社区贡献奖励</td>
-                                <td>✓</td>
-                                <td>✓</td>
-                                <td>✓</td>
-                                <td>✓</td>
+                                <td>✅</td>
+                                <td>✅</td>
+                                <td>✅</td>
+                                <td>✅</td>
                             </tr>
                         </tbody>
                     </table>
@@ -239,19 +435,19 @@
                             <img src="https://via.placeholder.com/400x200" alt="华为昇腾案例">
                         </div>
                         <div class="case-content">
-                            <h4>华为昇腾重点算子提速 10%+</h4>
-                            <p>通过使用 FlagOS 的 FlagGEMs 算子库，华为昇腾平台上的重点算子性能提升了 10% 以上，同时降低了开发者的迁移成本。</p>
-                            <a href="#" class="btn btn-secondary">查看详情</a>
+                            <h4>华为昇腾重点算子加速 110%+</h4>
+                            <p>通过使用 FlagOS 的 FlagGEMs 算子库，华为昇腾平台上的重点算子性能提升了 110% 以上，同时降低了开发者的迁移成本。</p>
+                            <a href="#" class="btn btn-secondary">了解详情</a>
                         </div>
                     </div>
                     <div class="case-item">
                         <div class="case-image">
-                            <img src="https://via.placeholder.com/400x200" alt="浪潮超节点案例">
+                            <img src="https://via.placeholder.com/400x200" alt="曙光超节点案例">
                         </div>
                         <div class="case-content">
-                            <h4>浪潮超节点适配效率 99.8%</h4>
-                            <p>FlagOS 成功适配浪潮超节点，实现了 99.8% 的适配效率，大幅提升了超节点集群的整体性能和易用性。</p>
-                            <a href="#" class="btn btn-secondary">查看详情</a>
+                            <h4>曙光超节点适配成功率 99.8%</h4>
+                            <p>FlagOS 成功适配曙光超节点，实现了 99.8% 的适配成功率，大幅提升了超节点集群的整体性能和易用性。</p>
+                            <a href="#" class="btn btn-secondary">了解详情</a>
                         </div>
                     </div>
                     <div class="case-item">
@@ -259,9 +455,9 @@
                             <img src="https://via.placeholder.com/400x200" alt="Qwen2.5-7B 案例">
                         </div>
                         <div class="case-content">
-                            <h4>Qwen2.5-7B 推理提速 40%</h4>
-                            <p>使用 FlagOS 的 FlagScale 框架，Qwen2.5-7B 模型在跨芯片环境下的推理性能提升了 40%，接近 CUDA 平台的性能表现。</p>
-                            <a href="#" class="btn btn-secondary">查看详情</a>
+                            <h4>Qwen2.5-7B 推理加速 40%</h4>
+                            <p>使用 FlagOS 的 FlagScale 引擎，Qwen2.5-7B 模型在多芯片环境下的推理性能提升了 40%，接近 CUDA 平台的性能表现。</p>
+                            <a href="#" class="btn btn-secondary">了解详情</a>
                         </div>
                     </div>
                 </div>
@@ -274,13 +470,13 @@
                 <div class="join-content">
                     <div class="join-info">
                         <h4>成为 FlagOS 生态合作伙伴</h4>
-                        <p>FlagOS 欢迎各类组织加入生态，共同构建统一的 AI 跨芯片开源生态。无论您是芯片厂商、软件企业、高校科研机构还是开发者个人，都能在 FlagOS 生态中找到适合的角色和发展机会。</p>
+                        <p>FlagOS 欢迎各类组织加入生态，共同构建统一的 AI 多芯片开源生态。无论您是芯片厂商、解决方案企业、高校科研机构还是开发者个人，都能在 FlagOS 生态中找到适合的角色和发展空间。</p>
                         <p>加入 FlagOS，您将获得：</p>
                         <ul>
                             <li>参与标准制定，提升行业影响力</li>
                             <li>获得技术支持，降低开发成本</li>
                             <li>与全球领先企业合作，拓展业务机会</li>
-                            <li>培养和吸引 AI 跨芯片领域人才</li>
+                            <li>培养和吸引 AI 多芯片领域人才</li>
                         </ul>
                     </div>
                     <div class="join-form">
@@ -306,7 +502,7 @@
                                 <label for="membership-type">申请会员类型</label>
                                 <select id="membership-type" name="membership-type" required>
                                     <option value="">请选择</option>
-                                    <option value="platinum">白金会员</option>
+                                    <option value="platinum">铂金会员</option>
                                     <option value="gold">黄金会员</option>
                                     <option value="silver">白银会员</option>
                                     <option value="individual">个人会员</option>
@@ -332,7 +528,7 @@
                     <h4>全球资源链接</h4>
                     <div class="resources-links">
                         <div class="link-category">
-                            <h5>开源平台</h5>
+                            <h5>开源生态</h5>
                             <ul>
                                 <li><a href="https://github.com/flagos-ai" target="_blank">GitHub：flagos-ai</a></li>
                                 <li><a href="#" target="_blank">ModelScope FlagRelease</a></li>
@@ -340,23 +536,14 @@
                                 <li><a href="https://triton-copilot.baai.ac.cn/" target="_blank">Triton-Copilot</a></li>
                             </ul>
                         </div>
-                        <div class="link-category">
-                            <h5>社区渠道</h5>
-                            <ul>
-                                <li><a href="#">微信公众号：FlagOpen</a></li>
-                                <li><a href="#">CSDN 专栏</a></li>
-                                <li><a href="#" target="_blank">Slack 国际社群</a></li>
-                                <li><a href="https://github.com/flagos-ai/discussions" target="_blank">GitHub Discussions</a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="footer-section">
                     <h4>基金会信息</h4>
                     <div class="foundation-info">
-                        <p><strong>成立背景：</strong>打破 AI 芯片生态碎片化</p>
-                        <p><strong>核心成员：</strong>社区秘书长朱其罡</p>
-                        <p><strong>联系方式：</strong>商务合作邮箱 contact@flagos.io</p>
+                        <p><strong>成立背景：</strong>打破 AI 芯片生产碎片化</p>
+                        <p><strong>核心成员：</strong>社区技术专家与行业领袖</p>
+                        <p><strong>联系方式：</strong>商业合作邮箱 contact@flagos.io</p>
                     </div>
                 </div>
                 <div class="footer-section">
@@ -366,7 +553,18 @@
                             <li><a href="#">开源协议：Apache 2.0</a></li>
                             <li><a href="#">代码规范：Contributor Covenant</a></li>
                             <li><a href="#">隐私政策</a></li>
-                            <li><a href="#">贡献协议</a></li>
+                            <li><a href="#">服务条款</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>社区渠道</h4>
+                    <div class="community-links">
+                        <ul>
+                            <li><a href="#">微信公众号：FlagOpen</a></li>
+                            <li><a href="#">CSDN 平台</a></li>
+                            <li><a href="#" target="_blank">Slack 国际社区</a></li>
+                            <li><a href="https://github.com/flagos-ai/discussions" target="_blank">GitHub Discussions</a></li>
                         </ul>
                     </div>
                 </div>
@@ -379,5 +577,83 @@
 
     <!-- JavaScript -->
     <script src="js/script.js"></script>
+    
+    <!-- 主题切换脚本 -->
+    <script>
+        // 暗黑模式切换
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        // 检查本地存储中的主题偏好
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.body.classList.add('dark-mode');
+            themeToggle.checked = true;
+        }
+        
+        // 切换主题
+        themeToggle.addEventListener('change', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // 搜索功能
+        const searchInput = document.querySelector('.search-input');
+        const searchBtn = document.querySelector('.search-btn');
+        
+        searchBtn.addEventListener('click', () => {
+            performSearch();
+        });
+        
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (query) {
+                console.log('搜索:', query);
+                // 这里可以添加实际的搜索逻辑
+                alert(`搜索 "${query}"，搜索功能开发中...`);
+            }
+        }
+        
+        // 侧边栏切换功能
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        // 移除自动添加的类，让CSS hover效果控制侧边栏
+        document.body.classList.remove('sidebar-expanded');
+        document.body.classList.remove('sidebar-collapsed');
+        
+        // 切换侧边栏
+        sidebarToggle.addEventListener('click', () => {
+            document.body.classList.toggle('sidebar-expanded');
+            document.body.classList.toggle('sidebar-collapsed');
+            
+            // 保存侧边栏状态到本地存储
+            if (document.body.classList.contains('sidebar-expanded')) {
+                localStorage.setItem('sidebar', 'expanded');
+            } else {
+                localStorage.setItem('sidebar', 'collapsed');
+            }
+        });
+        
+        // 根据当前页面设置侧边栏激活状态
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav li a');
+        
+        sidebarLinks.forEach(link => {
+            const linkPage = link.getAttribute('href');
+            if (linkPage === currentPage) {
+                link.classList.add('active');
+            }
+        });
+    </script>
 </body>
 </html>

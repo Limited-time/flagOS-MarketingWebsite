@@ -13,8 +13,170 @@
     <link rel="canonical" href="https://www.flagos.net/about">
     <title>关于 FlagOS - AI 跨芯片开源生态治理与赋能平台</title>
     <link rel="stylesheet" href="css/styles.css">
+    <!-- 引入图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="alternate" href="https://www.flagos.net/en/about" hreflang="en" />
     <link rel="alternate" href="https://www.flagos.net/zh/about" hreflang="zh-CN" />
+    <style>
+        /* 全局搜索样式 */
+        .search-container {
+            position: relative;
+            margin: 0 16px;
+        }
+        
+        .search-input {
+            width: 200px;
+            padding: 10px 40px 10px 16px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 25px;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        .search-input:focus {
+            width: 250px;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        
+        .search-btn:hover {
+            color: #3b82f6;
+        }
+        
+        /* 暗黑模式切换样式 */
+        .theme-switcher {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+            margin: 0 16px;
+        }
+        
+        .theme-switcher input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .theme-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e1;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .theme-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .theme-slider {
+            background-color: #3b82f6;
+        }
+        
+        input:checked + .theme-slider:before {
+            transform: translateX(20px);
+        }
+        
+        /* 暗黑模式样式 */
+        body.dark-mode {
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+        
+        body.dark-mode .navbar {
+            background-color: rgba(15, 23, 42, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        body.dark-mode .navbar .logo h1 {
+            color: #3b82f6;
+        }
+        
+        body.dark-mode .nav-menu li a {
+            color: #94a3b8;
+        }
+        
+        body.dark-mode .nav-menu li a:hover {
+            color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        
+        body.dark-mode section {
+            background-color: #1e293b;
+        }
+        
+        body.dark-mode section:nth-child(even) {
+            background-color: #0f172a;
+        }
+        
+        body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 {
+            color: #f8fafc;
+        }
+        
+        body.dark-mode p, body.dark-mode li {
+            color: #cbd5e1;
+        }
+        
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .search-container {
+                margin: 16px 0;
+                width: 100%;
+            }
+            
+            .search-input {
+                width: 100%;
+            }
+            
+            .search-input:focus {
+                width: 100%;
+            }
+            
+            .theme-switcher {
+                margin: 0 8px;
+            }
+        }
+        
+        /* 响应式导航优化 */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                gap: 16px;
+            }
+            
+            .nav-menu li a {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- 导航栏 -->
@@ -23,34 +185,72 @@
             <div class="logo">
                 <h1>FlagOS</h1>
             </div>
-            <ul class="nav-menu">
-                <li><a href="index.html">首页</a></li>
-                <li><a href="about.html" class="active">关于 FlagOS</a></li>
-                <li><a href="components.html">核心组件</a></li>
-                <li><a href="ecosystem.html">扩展生态</a></li>
-                <li><a href="docs.html">文档中心</a></li>
-                <li><a href="models.html">模型仓库</a></li>
-                <li><a href="community.html">社区中心</a></li>
-                <li><a href="partners.html">合作伙伴</a></li>
-                <li><a href="news.html">新闻动态</a></li>
-                <li><a href="contact.html">联系我们</a></li>
-            </ul>
-            <div class="language-switcher">
-                <a href="#" class="active">中文</a>
-                <span>/</span>
-                <a href="#">English</a>
+            <div class="nav-container">
+                <ul class="nav-menu">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="about.html" class="active">关于 FlagOS</a></li>
+                    <li><a href="components.html">核心组件</a></li>
+                    <li><a href="ecosystem.html">扩展生态</a></li>
+                    <li><a href="docs.html">文档中心</a></li>
+                    <li><a href="models.html">模型仓库</a></li>
+                    <li><a href="community.html">社区中心</a></li>
+                    <li><a href="partners.html">合作伙伴</a></li>
+                    <li><a href="news.html">新闻动态</a></li>
+                    <li><a href="contact.html">联系我们</a></li>
+                </ul>
+                
+                <!-- 全局搜索 -->
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="搜索组件、文档、模型...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
             </div>
-            <div class="mobile-menu-btn">
-                <span></span>
-                <span></span>
-                <span></span>
+            
+            <div class="nav-actions">
+                <!-- 暗黑模式切换 -->
+                <label class="theme-switcher">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="theme-slider"></span>
+                </label>
+                
+                <div class="language-switcher">
+                    <a href="#" class="active">中文</a>
+                    <span>/</span>
+                    <a href="#">English</a>
+                </div>
+                
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
     </nav>
 
+    <!-- 侧边栏切换按钮 -->
+    <button class="sidebar-toggle" id="sidebar-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- 侧边栏 -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>页面导航</h3>
+        </div>
+        <ul class="sidebar-nav">
+            <li><a href="#about-intro" class="active"><i class="fas fa-info-circle"></i> 关于 FlagOS</a></li>
+            <li><a href="#mission-vision"><i class="fas fa-eye"></i> 使命与愿景</a></li>
+            <li><a href="#linux-foundation-model"><i class="fas fa-building"></i> FlagOS 基金会</a></li>
+            <li><a href="#governance"><i class="fas fa-users-cog"></i> 治理架构</a></li>
+            <li><a href="#decision-process"><i class="fas fa-route"></i> 决策流程</a></li>
+            <li><a href="#open-source-license"><i class="fas fa-file-alt"></i> 开源协议</a></li>
+        </ul>
+    </aside>
+    
     <!-- 主要内容区域 -->
     <main class="main-content">
-        <section class="about-intro">
+        <section class="about-intro" id="about-intro">
             <div class="container">
                 <h2>关于 FlagOS</h2>
                 <div class="intro-content">
@@ -80,7 +280,7 @@
             </div>
         </section>
 
-        <section class="mission-vision">
+        <section class="mission-vision" id="mission-vision">
             <div class="container">
                 <h3>使命与愿景</h3>
                 <div class="mission-vision-grid">
@@ -96,7 +296,7 @@
             </div>
         </section>
 
-        <section class="linux-foundation-model">
+        <section class="linux-foundation-model" id="linux-foundation-model">
             <div class="container">
                 <h3>FlagOS 基金会</h3>
                 <div class="foundation-model-content">
@@ -133,7 +333,7 @@
             </div>
         </section>
 
-        <section class="governance">
+        <section class="governance" id="governance">
             <div class="container">
                 <h3>治理架构</h3>
                 <div class="governance-content">
@@ -164,7 +364,7 @@
             </div>
         </section>
 
-        <section class="decision-process">
+        <section class="decision-process" id="decision-process">
             <div class="container">
                 <h3>决策流程</h3>
                 <div class="process-steps">
@@ -195,14 +395,13 @@
                     <div class="process-step">
                         <div class="step-number">5</div>
                         <h4>迭代优化</h4>
-                        <div class="step-number">5</div>
                         <p>基于社区反馈持续迭代优化</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="open-source-license">
+        <section class="open-source-license" id="open-source-license">
             <div class="container">
                 <h3>开源协议</h3>
                 <div class="license-content">
@@ -231,15 +430,6 @@
                                 <li><a href="https://triton-copilot.baai.ac.cn/" target="_blank">Triton-Copilot</a></li>
                             </ul>
                         </div>
-                        <div class="link-category">
-                            <h5>社区渠道</h5>
-                            <ul>
-                                <li><a href="#">微信公众号：FlagOpen</a></li>
-                                <li><a href="#">CSDN 专栏</a></li>
-                                <li><a href="#" target="_blank">Slack 国际社群</a></li>
-                                <li><a href="https://github.com/flagos-ai/discussions" target="_blank">GitHub Discussions</a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="footer-section">
@@ -261,6 +451,17 @@
                         </ul>
                     </div>
                 </div>
+                <div class="footer-section">
+                    <h4>社区渠道</h4>
+                    <div class="community-links">
+                        <ul>
+                            <li><a href="#">微信公众号：FlagOpen</a></li>
+                            <li><a href="#">CSDN 专栏</a></li>
+                            <li><a href="#" target="_blank">Slack 国际社群</a></li>
+                            <li><a href="https://github.com/flagos-ai/discussions" target="_blank">GitHub Discussions</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 FlagOS 开源社区. All rights reserved.</p>
@@ -270,5 +471,83 @@
 
     <!-- JavaScript -->
     <script src="js/script.js"></script>
+    
+    <!-- 主题切换脚本 -->
+    <script>
+        // 暗黑模式切换
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        // 检查本地存储中的主题偏好
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.body.classList.add('dark-mode');
+            themeToggle.checked = true;
+        }
+        
+        // 切换主题
+        themeToggle.addEventListener('change', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // 搜索功能
+        const searchInput = document.querySelector('.search-input');
+        const searchBtn = document.querySelector('.search-btn');
+        
+        searchBtn.addEventListener('click', () => {
+            performSearch();
+        });
+        
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (query) {
+                console.log('搜索:', query);
+                // 这里可以添加实际的搜索逻辑
+                alert(`搜索 "${query}"，搜索功能开发中...`);
+            }
+        }
+        
+        // 侧边栏切换功能
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        // 移除自动添加的类，让CSS hover效果控制侧边栏
+        document.body.classList.remove('sidebar-expanded');
+        document.body.classList.remove('sidebar-collapsed');
+        
+        // 切换侧边栏
+        sidebarToggle.addEventListener('click', () => {
+            document.body.classList.toggle('sidebar-expanded');
+            document.body.classList.toggle('sidebar-collapsed');
+            
+            // 保存侧边栏状态到本地存储
+            if (document.body.classList.contains('sidebar-expanded')) {
+                localStorage.setItem('sidebar', 'expanded');
+            } else {
+                localStorage.setItem('sidebar', 'collapsed');
+            }
+        });
+        
+        // 根据当前页面设置侧边栏激活状态
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav li a');
+        
+        sidebarLinks.forEach(link => {
+            const linkPage = link.getAttribute('href');
+            if (linkPage === currentPage) {
+                link.classList.add('active');
+            }
+        });
+    </script>
 </body>
 </html>

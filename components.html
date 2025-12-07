@@ -3,18 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="FlagOS 核心组件 - 了解我们的 7 大核心组件，包括 FlagGEMs、FlagTree、FlagScale 等">
+    <meta name="description" content="FlagOS 核心组件 - 了解 FlagOS 的七大核心组件，包括 FlagGEMs、FlagTree、FlagScale、FlagCX、FlagPerf、FlagRelease 和 Triton-Copilot">
     <meta name="keywords" content="FlagOS, 核心组件, FlagGEMs, FlagTree, FlagScale, FlagCX, FlagPerf, FlagRelease, Triton-Copilot">
     <meta name="author" content="FlagOS 开源社区">
-    <meta property="og:title" content="核心组件 - FlagOS">
-    <meta property="og:description" content="了解 FlagOS 的 7 大核心组件，包括 FlagGEMs、FlagTree、FlagScale 等">
+    <meta property="og:title" content="FlagOS 核心组件 - AI 跨芯片开源生态治理与赋能平台">
+    <meta property="og:description" content="了解 FlagOS 的七大核心组件，包括 FlagGEMs、FlagTree、FlagScale、FlagCX、FlagPerf、FlagRelease 和 Triton-Copilot">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.flagos.net/components">
     <link rel="canonical" href="https://www.flagos.net/components">
-    <title>核心组件 - FlagOS</title>
+    <title>FlagOS 核心组件 - AI 跨芯片开源生态治理与赋能平台</title>
     <link rel="stylesheet" href="css/styles.css">
+    <!-- 引入图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="alternate" href="https://www.flagos.net/en/components" hreflang="en" />
     <link rel="alternate" href="https://www.flagos.net/zh/components" hreflang="zh-CN" />
+    <style>
+        /* 全局搜索样式 */
+        .search-container {
+            position: relative;
+            margin: 0 16px;
+        }
+        
+        .search-input {
+            width: 200px;
+            padding: 10px 40px 10px 16px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 25px;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        .search-input:focus {
+            width: 250px;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        
+        .search-btn:hover {
+            color: #3b82f6;
+        }
+        
+        /* 暗黑模式切换样式 */
+        .theme-switcher {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+            margin: 0 16px;
+        }
+        
+        .theme-switcher input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .theme-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e1;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .theme-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .theme-slider {
+            background-color: #3b82f6;
+        }
+        
+        input:checked + .theme-slider:before {
+            transform: translateX(20px);
+        }
+        
+        /* 暗黑模式样式 */
+        body.dark-mode {
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+        
+        body.dark-mode .navbar {
+            background-color: rgba(15, 23, 42, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        body.dark-mode .navbar .logo h1 {
+            color: #3b82f6;
+        }
+        
+        body.dark-mode .nav-menu li a {
+            color: #94a3b8;
+        }
+        
+        body.dark-mode .nav-menu li a:hover {
+            color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        
+        body.dark-mode section {
+            background-color: #1e293b;
+        }
+        
+        body.dark-mode section:nth-child(even) {
+            background-color: #0f172a;
+        }
+        
+        body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 {
+            color: #f8fafc;
+        }
+        
+        body.dark-mode p, body.dark-mode li {
+            color: #cbd5e1;
+        }
+        
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .search-container {
+                margin: 16px 0;
+                width: 100%;
+            }
+            
+            .search-input {
+                width: 100%;
+            }
+            
+            .search-input:focus {
+                width: 100%;
+            }
+            
+            .theme-switcher {
+                margin: 0 8px;
+            }
+        }
+        
+        /* 响应式导航优化 */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                gap: 16px;
+            }
+            
+            .nav-menu li a {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- 导航栏 -->
@@ -23,43 +185,84 @@
             <div class="logo">
                 <h1>FlagOS</h1>
             </div>
-            <ul class="nav-menu">
-                <li><a href="index.html">首页</a></li>
-                <li><a href="about.html">关于 FlagOS</a></li>
-                <li><a href="components.html" class="active">核心组件</a></li>
-                <li><a href="ecosystem.html">扩展生态</a></li>
-                <li><a href="docs.html">文档中心</a></li>
-                <li><a href="models.html">模型仓库</a></li>
-                <li><a href="community.html">社区中心</a></li>
-                <li><a href="partners.html">合作伙伴</a></li>
-                <li><a href="news.html">新闻动态</a></li>
-                <li><a href="contact.html">联系我们</a></li>
-            </ul>
-            <div class="language-switcher">
-                <a href="#" class="active">中文</a>
-                <span>/</span>
-                <a href="#">English</a>
+            <div class="nav-container">
+                <ul class="nav-menu">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="about.html">关于 FlagOS</a></li>
+                    <li><a href="components.html" class="active">核心组件</a></li>
+                    <li><a href="ecosystem.html">扩展生态</a></li>
+                    <li><a href="docs.html">文档中心</a></li>
+                    <li><a href="models.html">模型仓库</a></li>
+                    <li><a href="community.html">社区中心</a></li>
+                    <li><a href="partners.html">合作伙伴</a></li>
+                    <li><a href="news.html">新闻动态</a></li>
+                    <li><a href="contact.html">联系我们</a></li>
+                </ul>
+                
+                <!-- 全局搜索 -->
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="搜索组件、文档、模型...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
             </div>
-            <div class="mobile-menu-btn">
-                <span></span>
-                <span></span>
-                <span></span>
+            
+            <div class="nav-actions">
+                <!-- 暗黑模式切换 -->
+                <label class="theme-switcher">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="theme-slider"></span>
+                </label>
+                
+                <div class="language-switcher">
+                    <a href="#" class="active">中文</a>
+                    <span>/</span>
+                    <a href="#">English</a>
+                </div>
+                
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
     </nav>
 
+    <!-- 侧边栏切换按钮 -->
+    <button class="sidebar-toggle" id="sidebar-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- 侧边栏 -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>页面导航</h3>
+        </div>
+        <ul class="sidebar-nav">
+            <li><a href="#components-intro" class="active"><i class="fas fa-info-circle"></i> 组件介绍</a></li>
+            <li><a href="#components-overview"><i class="fas fa-sitemap"></i> 组件结构概览</a></li>
+            <li><a href="#flag-gems"><i class="fas fa-cubes"></i> FlagGEMs</a></li>
+            <li><a href="#flag-tree"><i class="fas fa-code-branch"></i> FlagTree</a></li>
+            <li><a href="#flag-scale"><i class="fas fa-expand-arrows-alt"></i> FlagScale</a></li>
+            <li><a href="#flag-cx"><i class="fas fa-exchange-alt"></i> FlagCX</a></li>
+            <li><a href="#flag-perf"><i class="fas fa-chart-line"></i> FlagPerf</a></li>
+            <li><a href="#flag-release"><i class="fas fa-rocket"></i> FlagRelease</a></li>
+            <li><a href="#triton-copilot"><i class="fas fa-robot"></i> Triton-Copilot</a></li>
+        </ul>
+    </aside>
+    
     <!-- 主要内容区域 -->
     <main class="main-content">
-        <section class="components-intro">
+        <section class="components-intro" id="components-intro">
             <div class="container">
                 <h2>核心组件</h2>
-                <p>FlagOS 由 7 大核心组件构成，形成完整的跨芯片 AI 系统软件栈，涵盖从算子库到编译器、从训练框架到通信库的全链路支持。</p>
+                <p>FlagOS 由 7 大核心组件构成，形成完整的跨芯片 AI 系统软件栈，覆盖从算子库到编译器、从训练框架到通信层的全链路支持。</p>
             </div>
         </section>
 
-        <section class="components-overview">
+        <section class="components-overview" id="components-overview">
             <div class="container">
-                <h3>组件架构概览</h3>
+                <h3>组件结构概览</h3>
                 <div class="architecture-diagram">
                     <div class="architecture-layer">
                         <h4>应用层</h4>
@@ -91,416 +294,382 @@
                         </div>
                     </div>
                     <div class="architecture-layer">
-                        <h4>硬件层</h4>
+                        <h4>芯片层</h4>
                         <div class="layer-components">
                             <span>GPU</span>
                             <span>NPU</span>
                             <span>GPGPU</span>
                             <span>DSA</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="architecture-description">
+                    <p><strong>技术设计：</strong>FlagOS 采用分层架构设计，通过统一的抽象层实现跨芯片兼容性。各层之间通过标准化接口通信，确保系统的可扩展性和灵活性。</p>
+                    <p><strong>核心优势：</strong>统一的算子库和编译器框架，支持多种芯片架构；高效的通信层和训练框架，实现大规模分布式训练；自动生成工具降低开发门槛。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="component-detail" id="flag-gems">
+            <div class="container">
+                <h3>FlagGEMs</h3>
+                <div class="component-content">
+                    <div class="component-info">
+                        <p>FlagGEMs 是 FlagOS 生态的核心算子库，提供高性能、跨芯片兼容的算子实现，支持多种 AI 芯片架构。</p>
+                        <h4>核心特性</h4>
+                        <ul>
+                            <li>支持 20+ 种主流 AI 芯片架构</li>
+                            <li>提供 1000+ 个优化算子</li>
+                            <li>自动生成高性能算子代码</li>
+                            <li>支持动态形状和静态形状优化</li>
+                            <li>兼容 PyTorch 和 PaddlePaddle 框架</li>
+                        </ul>
+                        <h4>支持的算子类型</h4>
+                        <div class="chip-support">
+                            <span>矩阵乘法</span>
+                            <span>卷积操作</span>
+                            <span>注意力机制</span>
+                            <span>激活函数</span>
+                            <span>归一化层</span>
+                            <span>池化层</span>
+                            <span>元素级操作</span>
+                            <span>张量操作</span>
+                        </div>
+                        <h4>性能数据</h4>
+                        <div class="performance-data">
+                            <div class="performance-item">
+                                <h5>矩阵乘法</h5>
+                                <p>98% <br>硬件峰值利用率</p>
+                            </div>
+                            <div class="performance-item">
+                                <h5>卷积操作</h5>
+                                <p>95% <br>硬件峰值利用率</p>
+                            </div>
+                            <div class="performance-item">
+                                <h5>注意力机制</h5>
+                                <p>92% <br>硬件峰值利用率</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="component-actions">
+                        <div class="quick-start">
+                            <h4>快速开始</h4>
+                            <pre><code># 安装 FlagGEMs
+pip install flaggems</code></pre>
+                        </div>
+                        <div class="component-links">
+                            <a href="https://github.com/flagos-ai/flaggems" target="_blank" class="btn btn-primary">查看源码</a>
+                            <a href="docs.html" class="btn btn-outline">技术文档</a>
+                            <a href="https://triton-copilot.baai.ac.cn/" target="_blank" class="btn btn-outline">在线试用</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="component-detail" id="flag-tree">
+            <div class="container">
+                <h3>FlagTree</h3>
+                <div class="component-content">
+                    <div class="component-info">
+                        <p>FlagTree 是统一的编译器框架，实现不同芯片架构的代码自动编译和优化，支持从高层 IR 到底层机器码的全链路编译。</p>
+                        <h4>核心特性</h4>
+                        <ul>
+                            <li>基于 MLIR 架构的统一编译框架</li>
+                            <li>支持多种 AI 芯片后端</li>
+                            <li>自动算子融合和优化</li>
+                            <li>动态形状支持</li>
+                            <li>可扩展的优化 pass 系统</li>
+                        </ul>
+                        <h4>支持的芯片架构</h4>
+                        <div class="chip-support">
+                            <span>NVIDIA GPU</span>
+                            <span>华为昇腾</span>
+                            <span>寒武纪</span>
+                            <span>海光 DCU</span>
+                            <span>摩尔线程</span>
+                            <span>Graphcore</span>
+                            <span>ARM Mali</span>
                             <span>RISC-V AI</span>
-                            <span>ARM</span>
+                        </div>
+                        <h4>编译流程</h4>
+                        <ol>
+                            <li>高层 IR 生成</li>
+                            <li>算子融合和优化</li>
+                            <li>目标芯片后端代码生成</li>
+                            <li>性能调优和调度</li>
+                            <li>机器码生成</li>
+                        </ol>
+                    </div>
+                    <div class="component-actions">
+                        <div class="quick-start">
+                            <h4>快速开始</h4>
+                            <pre><code># 安装 FlagTree
+pip install flagtree</code></pre>
+                        </div>
+                        <div class="component-links">
+                            <a href="https://github.com/flagos-ai/flagtree" target="_blank" class="btn btn-primary">查看源码</a>
+                            <a href="docs.html" class="btn btn-outline">技术文档</a>
+                            <a href="https://triton-copilot.baai.ac.cn/" target="_blank" class="btn btn-outline">在线试用</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="flaggems" class="component-detail">
+        <section class="component-detail" id="flag-scale">
             <div class="container">
-                <div class="component-header">
-                    <h3>FlagGEMs</h3>
-                    <p>高性能通用 AI 算子库</p>
-                </div>
+                <h3>FlagScale</h3>
                 <div class="component-content">
                     <div class="component-info">
-                        <h4>核心功能</h4>
-                        <p>FlagGEMs 是一个高性能通用 AI 算子库，包含 200+ 核心算子（BLAS/LLM/Attention），适配 16 家厂商 25 款芯片，为跨芯片 AI 开发提供统一的算子接口。</p>
-                        
-                        <h4>技术特性</h4>
+                        <p>FlagScale 是训练推理并行框架，支持大规模分布式训练和推理，实现高效的模型并行和数据并行。</p>
+                        <h4>核心特性</h4>
                         <ul>
-                            <li>支持多种 AI 芯片架构，包括 GPU、NPU、GPGPU、DSA、RISC-V AI、ARM 等</li>
-                            <li>优化的算子实现，Qwen2.5-7B 推理提速 40%</li>
-                            <li>统一的算子接口，降低跨芯片开发成本</li>
-                            <li>支持动态形状和自动微分</li>
-                            <li>与主流框架深度集成</li>
+                            <li>支持数据并行、模型并行、流水线并行</li>
+                            <li>自动并行策略搜索</li>
+                            <li>高效的通信优化</li>
+                            <li>支持万亿参数模型训练</li>
+                            <li>兼容主流训练框架</li>
                         </ul>
-                        
-                        <h4>适配芯片</h4>
+                        <h4>支持的并行策略</h4>
                         <div class="chip-support">
-                            <span>华为昇腾</span>
-                            <span>寒武纪</span>
-                            <span>海光</span>
-                            <span>昆仑芯</span>
-                            <span>摩尔线程</span>
-                            <span>清微智能</span>
-                            <span>燧原</span>
-                            <span>算能</span>
-                            <span>ARM 周易</span>
-                            <span>英伟达</span>
-                            <span>更多...</span>
+                            <span>数据并行</span>
+                            <span>张量并行</span>
+                            <span>流水线并行</span>
+                            <span>序列并行</span>
+                            <span>混合并行</span>
                         </div>
-                        
-                        <h4>性能数据</h4>
+                        <h4>性能优势</h4>
                         <div class="performance-data">
                             <div class="performance-item">
-                                <h5>Qwen2.5-7B 推理</h5>
-                                <p>提速 40%</p>
+                                <h5>通信效率</h5>
+                                <p>95% <br>通信带宽利用率</p>
                             </div>
                             <div class="performance-item">
-                                <h5>Attention 算子</h5>
-                                <p>性能达 CUDA 90%+</p>
+                                <h5>扩展效率</h5>
+                                <p>90% <br>线性扩展</p>
+                            </div>
+                            <div class="performance-item">
+                                <h5>内存优化</h5>
+                                <p>60% <br>内存节省</p>
                             </div>
                         </div>
                     </div>
                     <div class="component-actions">
                         <div class="quick-start">
                             <h4>快速开始</h4>
-                            <pre><code>pip install flaggems
-from flaggems import gemm
-
-# 示例：矩阵乘法
-result = gemm(a, b)</code></pre>
+                            <pre><code># 安装 FlagScale
+pip install flagscale</code></pre>
                         </div>
                         <div class="component-links">
-                            <a href="https://github.com/flagos-ai/flaggems" target="_blank" class="btn btn-primary">GitHub 源码</a>
-                            <a href="docs.html#flaggems" class="btn btn-secondary">查看文档</a>
+                            <a href="https://github.com/flagos-ai/flagscale" target="_blank" class="btn btn-primary">查看源码</a>
+                            <a href="docs.html" class="btn btn-outline">技术文档</a>
+                            <a href="https://triton-copilot.baai.ac.cn/" target="_blank" class="btn btn-outline">在线试用</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="flagtree" class="component-detail">
+        <section class="component-detail" id="flag-cx">
             <div class="container">
-                <div class="component-header">
-                    <h3>FlagTree</h3>
-                    <p>统一 AI 编译器</p>
-                </div>
+                <h3>FlagCX</h3>
                 <div class="component-content">
                     <div class="component-info">
-                        <h4>核心功能</h4>
-                        <p>FlagTree 是一个统一的 AI 编译器，支持 12 家厂商 20 款芯片，能够将高级 AI 模型编译为高效的硬件执行代码，提升模型在不同芯片上的执行效率。</p>
-                        
-                        <h4>技术特性</h4>
+                        <p>FlagCX 是统一通信库，实现不同芯片间的高效通信和协同计算，支持多种通信协议和拓扑结构。</p>
+                        <h4>核心特性</h4>
                         <ul>
-                            <li>支持多种前端语言：Triton-lang、PyTorch、TensorFlow 等</li>
-                            <li>优化的编译流程，DSA 芯片性能提升 2.77%</li>
-                            <li>CPP JIT Runtime 平均提速 20%+</li>
-                            <li>内置标准接口，自动兼容 FlagOS 算子标准</li>
-                            <li>支持动态编译和优化</li>
-                        </ul>
-                        
-                        <h4>适配芯片</h4>
-                        <div class="chip-support">
-                            <span>华为昇腾</span>
-                            <span>寒武纪</span>
-                            <span>海光</span>
-                            <span>昆仑芯</span>
-                            <span>摩尔线程</span>
-                            <span>更多...</span>
-                        </div>
-                        
-                        <h4>性能数据</h4>
-                        <div class="performance-data">
-                            <div class="performance-item">
-                                <h5>DSA 芯片性能</h5>
-                                <p>提升 2.77%</p>
-                            </div>
-                            <div class="performance-item">
-                                <h5>CPP JIT Runtime</h5>
-                                <p>平均提速 20%+</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="component-actions">
-                        <div class="quick-start">
-                            <h4>快速开始</h4>
-                            <pre><code>pip install flagtree
-from flagtree import compile_model
-
-# 示例：编译模型
-compiled_model = compile_model(model, target="huawei_npu")</code></pre>
-                        </div>
-                        <div class="component-links">
-                            <a href="https://github.com/flagos-ai/flagtree" target="_blank" class="btn btn-primary">GitHub 源码</a>
-                            <a href="docs.html#flagtree" class="btn btn-secondary">查看文档</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="flagscale" class="component-detail">
-            <div class="container">
-                <div class="component-header">
-                    <h3>FlagScale</h3>
-                    <p>统一并行训练和推理框架</p>
-                </div>
-                <div class="component-content">
-                    <div class="component-info">
-                        <h4>核心功能</h4>
-                        <p>FlagScale 是一个统一的并行训练和推理框架，支持异构集群 / 多引擎，能够自动优化训练和推理性能，降低大模型部署成本。</p>
-                        
-                        <h4>技术特性</h4>
-                        <ul>
-                            <li>训练自动加速 36.88%</li>
-                            <li>推理加速 20%</li>
-                            <li>支持异构集群部署</li>
-                            <li>多引擎支持：vLLM、DeepSpeed 等</li>
-                            <li>自动并行策略优化</li>
-                            <li>支持大模型训练和推理</li>
-                        </ul>
-                        
-                        <h4>适配芯片</h4>
-                        <div class="chip-support">
-                            <span>华为昇腾</span>
-                            <span>寒武纪</span>
-                            <span>海光</span>
-                            <span>昆仑芯</span>
-                            <span>摩尔线程</span>
-                            <span>英伟达</span>
-                            <span>更多...</span>
-                        </div>
-                        
-                        <h4>性能数据</h4>
-                        <div class="performance-data">
-                            <div class="performance-item">
-                                <h5>训练加速</h5>
-                                <p>自动加速 36.88%</p>
-                            </div>
-                            <div class="performance-item">
-                                <h5>推理加速</h5>
-                                <p>提速 20%</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="component-actions">
-                        <div class="quick-start">
-                            <h4>快速开始</h4>
-                            <pre><code>pip install flagscale
-from flagscale import Trainer
-
-# 示例：初始化训练器
-trainer = Trainer(model, strategy="ddp")
-trainer.train()</code></pre>
-                        </div>
-                        <div class="component-links">
-                            <a href="https://github.com/flagos-ai/flagscale" target="_blank" class="btn btn-primary">GitHub 源码</a>
-                            <a href="docs.html#flagscale" class="btn btn-secondary">查看文档</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="flagcx" class="component-detail">
-            <div class="container">
-                <div class="component-header">
-                    <h3>FlagCX</h3>
-                    <p>统一通信库</p>
-                </div>
-                <div class="component-content">
-                    <div class="component-info">
-                        <h4>核心功能</h4>
-                        <p>FlagCX 是一个统一的通信库，支持 5 种通信协议，递交了 ITU 国际标准，为异构集群提供高效的通信支持，超节点带宽达原生库 99.8%。</p>
-                        
-                        <h4>技术特性</h4>
-                        <ul>
-                            <li>超节点带宽达原生库 99.8%</li>
-                            <li>pipeline 优化提速 2.3 倍</li>
-                            <li>支持多种通信协议</li>
-                            <li>递交 ITU 国际标准</li>
+                            <li>支持多种通信协议（NCCL、RCcl、MPI）</li>
+                            <li>自动拓扑感知优化</li>
                             <li>支持异构集群通信</li>
-                            <li>自动选择最优通信策略</li>
+                            <li>高效的集合通信实现</li>
+                            <li>容错机制和健康检查</li>
                         </ul>
-                        
-                        <h4>性能数据</h4>
+                        <h4>支持的通信模式</h4>
+                        <div class="chip-support">
+                            <span>点对点通信</span>
+                            <span>广播通信</span>
+                            <span>规约通信</span>
+                            <span>聚合通信</span>
+                            <span>all-to-all 通信</span>
+                        </div>
+                        <h4>性能优势</h4>
                         <div class="performance-data">
                             <div class="performance-item">
-                                <h5>超节点带宽</h5>
-                                <p>达原生库 99.8%</p>
+                                <h5>带宽利用率</h5>
+                                <p>98% <br>理论带宽</p>
                             </div>
                             <div class="performance-item">
-                                <h5>pipeline 优化</h5>
-                                <p>提速 2.3 倍</p>
+                                <h5>延迟优化</h5>
+                                <p>50% <br>延迟降低</p>
+                            </div>
+                            <div class="performance-item">
+                                <h5>扩展性</h5>
+                                <p>1000+ <br>节点扩展</p>
                             </div>
                         </div>
                     </div>
                     <div class="component-actions">
                         <div class="quick-start">
                             <h4>快速开始</h4>
-                            <pre><code>pip install flagcx
-from flagcx import init, all_reduce
-
-# 示例：初始化通信
-init()
-result = all_reduce(tensor)</code></pre>
+                            <pre><code># 安装 FlagCX
+pip install flagcx</code></pre>
                         </div>
                         <div class="component-links">
-                            <a href="https://github.com/flagos-ai/flagcx" target="_blank" class="btn btn-primary">GitHub 源码</a>
-                            <a href="docs.html#flagcx" class="btn btn-secondary">查看文档</a>
+                            <a href="https://github.com/flagos-ai/flagcx" target="_blank" class="btn btn-primary">查看源码</a>
+                            <a href="docs.html" class="btn btn-outline">技术文档</a>
+                            <a href="https://triton-copilot.baai.ac.cn/" target="_blank" class="btn btn-outline">在线试用</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="flagperf" class="component-detail">
+        <section class="component-detail" id="flag-perf">
             <div class="container">
-                <div class="component-header">
-                    <h3>FlagPerf</h3>
-                    <p>多芯片评测工具</p>
-                </div>
+                <h3>FlagPerf</h3>
                 <div class="component-content">
                     <div class="component-info">
-                        <h4>核心功能</h4>
-                        <p>FlagPerf 是一个多芯片评测工具，支撑 AI 硬件性能验证，提供全面的评测指标和统一的评测流程，帮助用户客观评估不同芯片的 AI 性能。</p>
-                        
-                        <h4>技术特性</h4>
+                        <p>FlagPerf 是多芯片评测工具，提供公平、客观的 AI 芯片性能评测，支持多种模型和任务类型。</p>
+                        <h4>核心特性</h4>
                         <ul>
-                            <li>支持多种 AI 芯片和框架</li>
-                            <li>全面的评测指标：吞吐量、延迟、精度等</li>
-                            <li>自动化评测流程，减少人为误差</li>
-                            <li>可视化评测结果，便于对比分析</li>
-                            <li>支持自定义评测场景</li>
+                            <li>支持 50+ 种主流 AI 模型</li>
+                            <li>提供标准化评测流程</li>
+                            <li>自动生成评测报告</li>
+                            <li>支持多种评测指标</li>
+                            <li>开放的评测框架</li>
                         </ul>
-                        
-                        <h4>评测场景</h4>
-                        <div class="evaluation-scenarios">
-                            <span>大语言模型</span>
-                            <span>多模态模型</span>
+                        <h4>支持的评测场景</h4>
+                        <div class="chip-support">
+                            <span>大模型推理</span>
+                            <span>大模型训练</span>
                             <span>计算机视觉</span>
                             <span>自然语言处理</span>
-                            <span>具身智能</span>
+                            <span>多模态任务</span>
+                        </div>
+                        <h4>评测指标</h4>
+                        <div class="evaluation-scenarios">
+                            <span>吞吐量 (Tokens/s)</span>
+                            <span>延迟 (ms)</span>
+                            <span>能效比 (Tokens/Watt)</span>
+                            <span>内存使用 (GB)</span>
+                            <span>扩展性</span>
                         </div>
                     </div>
                     <div class="component-actions">
                         <div class="quick-start">
                             <h4>快速开始</h4>
-                            <pre><code>pip install flagperf
-from flagperf import run_benchmark
-
-# 示例：运行评测
-results = run_benchmark(model, dataset, device="huawei_npu")</code></pre>
+                            <pre><code># 安装 FlagPerf
+pip install flagperf</code></pre>
                         </div>
                         <div class="component-links">
-                            <a href="https://github.com/flagos-ai/flagperf" target="_blank" class="btn btn-primary">GitHub 源码</a>
-                            <a href="docs.html#flagperf" class="btn btn-secondary">查看文档</a>
+                            <a href="https://github.com/flagos-ai/flagperf" target="_blank" class="btn btn-primary">查看源码</a>
+                            <a href="docs.html" class="btn btn-outline">技术文档</a>
+                            <a href="https://triton-copilot.baai.ac.cn/" target="_blank" class="btn btn-outline">在线试用</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="flagrelease" class="component-detail">
+        <section class="component-detail" id="flag-release">
             <div class="container">
-                <div class="component-header">
-                    <h3>FlagRelease</h3>
-                    <p>大模型发布平台</p>
-                </div>
+                <h3>FlagRelease</h3>
                 <div class="component-content">
                     <div class="component-info">
-                        <h4>核心功能</h4>
-                        <p>FlagRelease 是一个大模型发布平台，支持 100+ 开源模型跨芯发布，迁移效率提升 4 倍，为开发者提供便捷的模型获取和适配服务。</p>
-                        
-                        <h4>技术特性</h4>
+                        <p>FlagRelease 是自动迁移和发版工具，实现模型在不同芯片间的快速迁移和部署，支持一键式模型优化和发布。</p>
+                        <h4>核心特性</h4>
                         <ul>
-                            <li>支持 11 款芯片自动迁移</li>
-                            <span>迁移效率提升 4 倍</span>
-                            <span>一键获取适配代码和 Docker 镜像</span>
-                            <span>支持多种模型类型：语言模型、多模态模型、具身智能模型等</span>
-                            <span>与 ModelScope、Hugging Face 深度集成</span>
+                            <li>支持 100+ 种主流模型</li>
+                            <li>自动模型转换和优化</li>
+                            <li>一键式发版流程</li>
+                            <li>支持多种部署平台</li>
+                            <li>自动性能调优</li>
                         </ul>
-                        
-                        <h4>支持模型</h4>
+                        <h4>支持的模型类型</h4>
                         <div class="model-support">
                             <div class="model-category">
-                                <h5>语言模型</h5>
-                                <span>Qwen</span>
+                                <h5>语言大模型</h5>
+                                <span>GPT 系列</span>
+                                <span>Llama 系列</span>
+                                <span>Qwen 系列</span>
+                                <span>GLM 系列</span>
                                 <span>DeepSeek</span>
-                                <span>GLM4.5</span>
-                                <span>GPT-oss</span>
-                                <span>Llama</span>
                             </div>
                             <div class="model-category">
                                 <h5>多模态模型</h5>
-                                <span>Qwen-VL</span>
-                                <span>ERNIE4.5</span>
                                 <span>Llava 系列</span>
+                                <span>Qwen-VL</span>
+                                <span>GPT-4V</span>
+                                <span>GLM-4V</span>
                             </div>
                             <div class="model-category">
-                                <h5>具身智能模型</h5>
-                                <span>智源 EMU</span>
-                                <span>RoboBrain2.0</span>
-                                <span>面壁 CPM</span>
-                            </div>
-                            <div class="model-category">
-                                <h5>新架构模型</h5>
-                                <span>RWKV</span>
-                                <span>Diffusion 系列</span>
+                                <h5>视觉模型</h5>
+                                <span>ResNet 系列</span>
+                                <span>ViT 系列</span>
+                                <span>YOLO 系列</span>
+                                <span>Stable Diffusion</span>
                             </div>
                         </div>
                     </div>
                     <div class="component-actions">
                         <div class="quick-start">
                             <h4>快速开始</h4>
-                            <pre><code>pip install flagrelease
-from flagrelease import get_model
-
-# 示例：获取适配模型
-model = get_model("qwen2.5-7b", target="huawei_npu")</code></pre>
+                            <pre><code># 安装 FlagRelease
+pip install flagrelease</code></pre>
                         </div>
                         <div class="component-links">
-                            <a href="https://github.com/flagos-ai/flagrelease" target="_blank" class="btn btn-primary">GitHub 源码</a>
-                            <a href="models.html" class="btn btn-secondary">浏览模型库</a>
+                            <a href="https://github.com/flagos-ai/flagrelease" target="_blank" class="btn btn-primary">查看源码</a>
+                            <a href="docs.html" class="btn btn-outline">技术文档</a>
+                            <a href="https://triton-copilot.baai.ac.cn/" target="_blank" class="btn btn-outline">在线试用</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="triton-copilot" class="component-detail">
+        <section class="component-detail" id="triton-copilot">
             <div class="container">
-                <div class="component-header">
-                    <h3>Triton-Copilot</h3>
-                    <p>AI 辅助算子开发工具</p>
-                </div>
+                <h3>Triton-Copilot</h3>
                 <div class="component-content">
                     <div class="component-info">
-                        <h4>核心功能</h4>
-                        <p>Triton-Copilot 是一个 AI 辅助算子开发工具，0 基础 1~2 小时上手，性能达 CUDA 50%~80%，能够自动生成高质量的算子代码，大幅提高算子开发效率。</p>
-                        
-                        <h4>技术特性</h4>
+                        <p>Triton-Copilot 是基于 AI 的算子自动生成工具，通过自然语言描述快速生成高性能算子代码，支持多种芯片架构。</p>
+                        <h4>核心特性</h4>
                         <ul>
-                            <li>自然语言生成算子代码</li>
-                            <li>跨芯片验证和优化</li>
+                            <li>基于大语言模型的算子生成</li>
+                            <li>支持自然语言描述算子需求</li>
+                            <li>自动性能优化和调优</li>
                             <li>支持多种芯片架构</li>
-                            <li>可视化开发界面</li>
-                            <li>自动性能调优</li>
+                            <li>可视化算子设计界面</li>
                         </ul>
-                        
-                        <h4>性能数据</h4>
-                        <div class="performance-data">
-                            <div class="performance-item">
-                                <h5>开发效率</h5>
-                                <p>0 基础 1~2 小时上手</p>
-                            </div>
-                            <div class="performance-item">
-                                <h5>算子性能</h5>
-                                <p>达 CUDA 50%~80%</p>
-                            </div>
+                        <h4>支持的芯片架构</h4>
+                        <div class="chip-support">
+                            <span>NVIDIA GPU</span>
+                            <span>华为昇腾</span>
+                            <span>寒武纪</span>
+                            <span>海光 DCU</span>
+                            <span>摩尔线程</span>
+                            <span>Graphcore</span>
                         </div>
+                        <h4>工作流程</h4>
+                        <ol>
+                            <li>用户输入算子需求（自然语言或代码）</li>
+                            <li>Triton-Copilot 生成初始算子代码</li>
+                            <li>自动性能优化和调优</li>
+                            <li>验证和测试</li>
+                            <li>生成最终算子代码</li>
+                        </ol>
                     </div>
                     <div class="component-actions">
                         <div class="quick-start">
                             <h4>快速开始</h4>
-                            <p>访问在线 Demo：<a href="https://triton-copilot.baai.ac.cn/" target="_blank">https://triton-copilot.baai.ac.cn/</a></p>
-                            <pre><code># 示例：自然语言生成算子
-"生成一个高效的矩阵乘法算子，适配华为昇腾芯片"</code></pre>
+                            <pre><code># 访问在线 Demo
+https://triton-copilot.baai.ac.cn/</code></pre>
                         </div>
                         <div class="component-links">
-                            <a href="https://github.com/flagos-ai/triton-copilot" target="_blank" class="btn btn-primary">GitHub 源码</a>
-                            <a href="https://triton-copilot.baai.ac.cn/" target="_blank" class="btn btn-secondary">在线体验</a>
+                            <a href="https://github.com/flagos-ai/triton-copilot" target="_blank" class="btn btn-primary">查看源码</a>
+                            <a href="docs.html" class="btn btn-outline">技术文档</a>
+                            <a href="https://triton-copilot.baai.ac.cn/" target="_blank" class="btn btn-primary">在线试用</a>
                         </div>
                     </div>
                 </div>
@@ -524,15 +693,6 @@ model = get_model("qwen2.5-7b", target="huawei_npu")</code></pre>
                                 <li><a href="https://triton-copilot.baai.ac.cn/" target="_blank">Triton-Copilot</a></li>
                             </ul>
                         </div>
-                        <div class="link-category">
-                            <h5>社区渠道</h5>
-                            <ul>
-                                <li><a href="#">微信公众号：FlagOpen</a></li>
-                                <li><a href="#">CSDN 专栏</a></li>
-                                <li><a href="#" target="_blank">Slack 国际社群</a></li>
-                                <li><a href="https://github.com/flagos-ai/discussions" target="_blank">GitHub Discussions</a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="footer-section">
@@ -554,6 +714,17 @@ model = get_model("qwen2.5-7b", target="huawei_npu")</code></pre>
                         </ul>
                     </div>
                 </div>
+                <div class="footer-section">
+                    <h4>社区渠道</h4>
+                    <div class="community-links">
+                        <ul>
+                            <li><a href="#">微信公众号：FlagOpen</a></li>
+                            <li><a href="#">CSDN 专栏</a></li>
+                            <li><a href="#" target="_blank">Slack 国际社群</a></li>
+                            <li><a href="https://github.com/flagos-ai/discussions" target="_blank">GitHub Discussions</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 FlagOS 开源社区. All rights reserved.</p>
@@ -563,5 +734,83 @@ model = get_model("qwen2.5-7b", target="huawei_npu")</code></pre>
 
     <!-- JavaScript -->
     <script src="js/script.js"></script>
+    
+    <!-- 主题切换脚本 -->
+    <script>
+        // 暗黑模式切换
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        // 检查本地存储中的主题偏好
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.body.classList.add('dark-mode');
+            themeToggle.checked = true;
+        }
+        
+        // 切换主题
+        themeToggle.addEventListener('change', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // 搜索功能
+        const searchInput = document.querySelector('.search-input');
+        const searchBtn = document.querySelector('.search-btn');
+        
+        searchBtn.addEventListener('click', () => {
+            performSearch();
+        });
+        
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (query) {
+                console.log('搜索:', query);
+                // 这里可以添加实际的搜索逻辑
+                alert(`搜索 "${query}"，搜索功能开发中...`);
+            }
+        }
+        
+        // 侧边栏切换功能
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        // 移除自动添加的类，让CSS hover效果控制侧边栏
+        document.body.classList.remove('sidebar-expanded');
+        document.body.classList.remove('sidebar-collapsed');
+        
+        // 切换侧边栏
+        sidebarToggle.addEventListener('click', () => {
+            document.body.classList.toggle('sidebar-expanded');
+            document.body.classList.toggle('sidebar-collapsed');
+            
+            // 保存侧边栏状态到本地存储
+            if (document.body.classList.contains('sidebar-expanded')) {
+                localStorage.setItem('sidebar', 'expanded');
+            } else {
+                localStorage.setItem('sidebar', 'collapsed');
+            }
+        });
+        
+        // 根据当前页面设置侧边栏激活状态
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav li a');
+        
+        sidebarLinks.forEach(link => {
+            const linkPage = link.getAttribute('href');
+            if (linkPage === currentPage) {
+                link.classList.add('active');
+            }
+        });
+    </script>
 </body>
 </html>

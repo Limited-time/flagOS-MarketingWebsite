@@ -13,9 +13,374 @@
     <link rel="canonical" href="https://www.flagos.net">
     <title>FlagOS - AI 跨芯片开源生态治理与赋能平台</title>
     <link rel="stylesheet" href="css/styles.css">
+    <!-- 引入图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="alternate" href="https://www.flagos.net/en" hreflang="en" />
     <link rel="alternate" href="https://www.flagos.net/zh" hreflang="zh-CN" />
     <link rel="alternate" href="https://www.flagos.net/" hreflang="x-default" />
+    <style>
+        /* 全局搜索样式 */
+        .search-container {
+            position: relative;
+            margin: 0 16px;
+        }
+        
+        .search-input {
+            width: 200px;
+            padding: 10px 40px 10px 16px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 25px;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        .search-input:focus {
+            width: 250px;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        
+        .search-btn:hover {
+            color: #3b82f6;
+        }
+        
+        /* 暗黑模式切换样式 */
+        .theme-switcher {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+            margin: 0 16px;
+        }
+        
+        .theme-switcher input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .theme-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e1;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .theme-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .theme-slider {
+            background-color: #3b82f6;
+        }
+        
+        input:checked + .theme-slider:before {
+            transform: translateX(20px);
+        }
+        
+        /* 暗黑模式样式 */
+        body.dark-mode {
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+        
+        body.dark-mode .navbar {
+            background-color: rgba(15, 23, 42, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        body.dark-mode .navbar .logo h1 {
+            color: #3b82f6;
+        }
+        
+        body.dark-mode .nav-menu li a {
+            color: #94a3b8;
+        }
+        
+        body.dark-mode .nav-menu li a:hover {
+            color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        
+        body.dark-mode section {
+            background-color: #1e293b;
+        }
+        
+        body.dark-mode section:nth-child(even) {
+            background-color: #0f172a;
+        }
+        
+        body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 {
+            color: #f8fafc;
+        }
+        
+        body.dark-mode p, body.dark-mode li {
+            color: #cbd5e1;
+        }
+        
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .search-container {
+                margin: 16px 0;
+                width: 100%;
+            }
+            
+            .search-input {
+                width: 100%;
+            }
+            
+            .search-input:focus {
+                width: 100%;
+            }
+            
+            .theme-switcher {
+                margin: 0 8px;
+            }
+        }
+        
+        /* 响应式导航优化 */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                gap: 16px;
+            }
+            
+            .nav-menu li a {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
+        
+        /* 痛点-价值对比样式 */
+        .pain-points-value {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 60px 0;
+            flex-wrap: wrap;
+        }
+        
+        .pain-points, .value-props {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+        }
+        
+        .pain-points h4, .value-props h4 {
+            font-size: 24px;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        
+        .pain-points h4 {
+            color: #ef4444;
+        }
+        
+        .value-props h4 {
+            color: #3b82f6;
+        }
+        
+        .point-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding: 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .pain-points .point-item {
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        
+        .value-props .point-item {
+            background-color: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .point-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+        
+        .point-icon {
+            font-size: 24px;
+            margin-top: 4px;
+        }
+        
+        .pain-points .point-icon {
+            color: #ef4444;
+        }
+        
+        .value-props .point-icon {
+            color: #3b82f6;
+        }
+        
+        .point-content h5 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        
+        .pain-points .point-content h5 {
+            color: #dc2626;
+        }
+        
+        .value-props .point-content h5 {
+            color: #2563eb;
+        }
+        
+        .point-content p {
+            color: #64748b;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        
+        /* 核心组件卡片优化 */
+        .component-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .component-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        
+        .component-actions .btn {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 14px;
+        }
+        
+        /* 实时生态数据样式 */
+        .real-time-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 60px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(59, 130, 246, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: #3b82f6;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 16px;
+            color: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* 动态数据动画 */
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .stat-number {
+            animation: countUp 0.8s ease-out forwards;
+        }
+        
+        /* 芯片厂商 Logo 墙优化 */
+        .chip-vendors {
+            margin: 60px 0;
+        }
+        
+        .chip-vendors h4 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #2c3e50;
+        }
+        
+        .vendors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 32px;
+            align-items: center;
+            justify-items: center;
+        }
+        
+        .vendor-logo {
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 200px;
+        }
+        
+        .vendor-logo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+        
+        .vendor-logo span {
+            font-size: 18px;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+        
+
+    </style>
 </head>
 <body>
     <!-- 导航栏 -->
@@ -24,31 +389,73 @@
             <div class="logo">
                 <h1>FlagOS</h1>
             </div>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="active">首页</a></li>
-                <li><a href="about.html">关于 FlagOS</a></li>
-                <li><a href="components.html">核心组件</a></li>
-                <li><a href="ecosystem.html">扩展生态</a></li>
-                <li><a href="docs.html">文档中心</a></li>
-                <li><a href="models.html">模型仓库</a></li>
-                <li><a href="community.html">社区中心</a></li>
-                <li><a href="partners.html">合作伙伴</a></li>
-                <li><a href="news.html">新闻动态</a></li>
-                <li><a href="contact.html">联系我们</a></li>
-            </ul>
-            <div class="language-switcher">
-                <a href="#" class="active">中文</a>
-                <span>/</span>
-                <a href="#">English</a>
+            <div class="nav-container">
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="active">首页</a></li>
+                    <li><a href="about.html">关于 FlagOS</a></li>
+                    <li><a href="components.html">核心组件</a></li>
+                    <li><a href="ecosystem.html">扩展生态</a></li>
+                    <li><a href="docs.html">文档中心</a></li>
+                    <li><a href="models.html">模型仓库</a></li>
+                    <li><a href="community.html">社区中心</a></li>
+                    <li><a href="partners.html">合作伙伴</a></li>
+                    <li><a href="news.html">新闻动态</a></li>
+                    <li><a href="contact.html">联系我们</a></li>
+                </ul>
+                
+                <!-- 全局搜索 -->
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="搜索组件、文档、模型...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
             </div>
-            <div class="mobile-menu-btn">
-                <span></span>
-                <span></span>
-                <span></span>
+            
+            <div class="nav-actions">
+                <!-- 暗黑模式切换 -->
+                <label class="theme-switcher">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="theme-slider"></span>
+                </label>
+                
+                <div class="language-switcher">
+                    <a href="#" class="active">中文</a>
+                    <span>/</span>
+                    <a href="#">English</a>
+                </div>
+                
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
     </nav>
 
+    <!-- 侧边栏切换按钮 -->
+    <button class="sidebar-toggle" id="sidebar-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- 侧边栏 -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>页面导航</h3>
+        </div>
+        <ul class="sidebar-nav">
+            <li><a href="#" class="active"><i class="fas fa-home"></i> 首页 Banner</a></li>
+            <li><a href="#architecture"><i class="fas fa-project-diagram"></i> 技术架构</a></li>
+            <li><a href="#ecosystem-advantages"><i class="fas fa-star"></i> 生态核心优势</a></li>
+            <li><a href="#flagos-version"><i class="fas fa-code-branch"></i> FlagOS v1.5</a></li>
+            <li><a href="#cuda-comparison"><i class="fas fa-balance-scale"></i> FlagOS vs CUDA</a></li>
+            <li><a href="#model-tag-cloud"><i class="fas fa-tags"></i> 已支持大模型</a></li>
+            <li><a href="#components-preview"><i class="fas fa-cubes"></i> 核心组件速览</a></li>
+            <li><a href="#milestones"><i class="fas fa-road"></i> 里程碑</a></li>
+            <li><a href="#members-cooperation"><i class="fas fa-handshake"></i> 会员与合作</a></li>
+            <li><a href="#quick-nav"><i class="fas fa-compass"></i> 快速导航</a></li>
+        </ul>
+    </aside>
+    
     <!-- 主要内容区域 -->
     <main class="main-content">
         <!-- 首页 Banner -->
@@ -57,17 +464,85 @@
                 <div class="banner-content">
                     <h2>统一 AI 系统软件平台</h2>
                     <p class="banner-subtitle">为解决不同 AI 芯片大规模落地应用，构建「模型-系统-芯片」三层贯通的开放技术生态</p>
-                    <div class="core-stats">
-                        <span>17+ 芯片企业</span>
-                        <span>20+ 款不同芯片</span>
-                        <span>一次开发跨芯迁移</span>
-                        <span>释放硬件计算潜力</span>
+                    
+                    <!-- 实时生态数据 -->
+                    <div class="real-time-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">20,000+</span>
+                            <span class="stat-label">全球开发者</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">404+</span>
+                            <span class="stat-label">开源贡献者</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">17+</span>
+                            <span class="stat-label">芯片厂商</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">20+</span>
+                            <span class="stat-label">不同芯片</span>
+                        </div>
                     </div>
+                    
                     <div class="banner-actions">
                         <a href="docs.html" class="btn btn-primary">技术体验</a>
                         <a href="partners.html" class="btn btn-secondary">会员合作</a>
                         <a href="community.html" class="btn btn-outline">社区参与</a>
                     </div>
+                    
+                    <!-- 痛点-价值对比 -->
+                    <div class="pain-points-value">
+                        <div class="pain-points">
+                            <h4><i class="fas fa-exclamation-circle"></i> 行业痛点</h4>
+                            <div class="point-item">
+                                <div class="point-icon"><i class="fas fa-code-branch"></i></div>
+                                <div class="point-content">
+                                    <h5>跨芯片开发需重写代码</h5>
+                                    <p>不同芯片平台需要不同的开发框架和工具链，开发者需要学习多种技术栈</p>
+                                </div>
+                            </div>
+                            <div class="point-item">
+                                <div class="point-icon"><i class="fas fa-clock"></i></div>
+                                <div class="point-content">
+                                    <h5>迁移成本高</h5>
+                                    <p>模型和应用在不同芯片间迁移需要大量人力和时间，效率低下</p>
+                                </div>
+                            </div>
+                            <div class="point-item">
+                                <div class="point-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                                <div class="point-content">
+                                    <h5>性能不兼容</h5>
+                                    <p>相同模型在不同芯片上性能表现差异大，难以充分发挥硬件潜力</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="value-props">
+                            <h4><i class="fas fa-lightbulb"></i> FlagOS 价值</h4>
+                            <div class="point-item">
+                                <div class="point-icon"><i class="fas fa-check-circle"></i></div>
+                                <div class="point-content">
+                                    <h5>一次开发跨芯迁移</h5>
+                                    <p>统一的开发框架和工具链，一次开发即可在多种芯片上运行</p>
+                                </div>
+                            </div>
+                            <div class="point-item">
+                                <div class="point-icon"><i class="fas fa-rocket"></i></div>
+                                <div class="point-content">
+                                    <h5>效率提升 4 倍</h5>
+                                    <p>自动化迁移工具，大幅降低开发和迁移成本</p>
+                                </div>
+                            </div>
+                            <div class="point-item">
+                                <div class="point-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                <div class="point-content">
+                                    <h5>性能逼近 CUDA</h5>
+                                    <p>深度优化的算子库和编译器，充分发挥不同芯片的硬件潜力</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="neutral-indicator">
                         <p>由北京智源人工智能研究院联合芯片企业、系统厂商、算法和软件相关单位、科研机构等十多家国内外机构共同发起</p>
                     </div>
@@ -76,7 +551,7 @@
         </section>
 
         <!-- 技术架构图 -->
-        <section class="architecture">
+        <section class="architecture" id="architecture">
             <div class="container">
                 <h3>技术架构</h3>
                 <div class="architecture-content">
@@ -127,7 +602,7 @@
         </section>
 
         <!-- 生态核心优势 -->
-        <section class="ecosystem-advantages">
+        <section class="ecosystem-advantages" id="ecosystem-advantages">
             <div class="container">
                 <h3>生态核心优势</h3>
                 <div class="advantages-grid">
@@ -160,7 +635,7 @@
         </section>
 
         <!-- FlagOS v1.5 介绍 -->
-        <section class="flagos-version">
+        <section class="flagos-version" id="flagos-version">
             <div class="container">
                 <h3>FlagOS v1.5：面向多种 AI 芯片的系统软件栈</h3>
                 <div class="version-content">
@@ -183,7 +658,7 @@
         </section>
 
         <!-- FlagOS 与 CUDA 比较 -->
-        <section class="cuda-comparison">
+        <section class="cuda-comparison" id="cuda-comparison">
             <div class="container">
                 <h3>FlagOS vs CUDA</h3>
                 <div class="comparison-content">
@@ -237,52 +712,97 @@
             </div>
         </section>
 
+        <!-- 模型标签云 -->
+        <section class="model-tag-cloud" id="model-tag-cloud">
+            <div class="container">
+                <h4>已支持大模型</h4>
+                <div class="tags-container">
+                    <a href="models.html" class="model-tag">Qwen</a>
+                    <a href="models.html" class="model-tag">DeepSeek</a>
+                    <a href="models.html" class="model-tag">GLM4.5</a>
+                    <a href="models.html" class="model-tag">Llama</a>
+                    <a href="models.html" class="model-tag">Qwen-VL</a>
+                    <a href="models.html" class="model-tag">ERNIE4.5</a>
+                    <a href="models.html" class="model-tag">Llava</a>
+                    <a href="models.html" class="model-tag">智源 EMU</a>
+                    <a href="models.html" class="model-tag">RoboBrain2.0</a>
+                    <a href="models.html" class="model-tag">RWKV</a>
+                    <a href="models.html" class="model-tag">Diffusion</a>
+                    <a href="models.html" class="model-tag">Mistral</a>
+                    <a href="models.html" class="model-tag">Falcon</a>
+                    <a href="models.html" class="model-tag">StarCoder</a>
+                    <a href="models.html" class="model-tag">CodeLlama</a>
+                </div>
+            </div>
+        </section>
+
         <!-- 核心组件速览 -->
-        <section class="components-preview">
+        <section class="components-preview" id="components-preview">
             <div class="container">
                 <h3>核心组件</h3>
                 <div class="components-grid">
                     <div class="component-card">
                         <h4>FlagRelease</h4>
-                        <p>自动迁移和发版工具</p>
-                        <a href="components.html#flagrelease" class="btn btn-outline">了解详情</a>
+                        <p>自动迁移和发版工具，实现模型在不同芯片间的快速迁移和部署</p>
+                        <div class="component-actions">
+                            <a href="https://triton-copilot.baai.ac.cn/" target="_blank" class="btn btn-primary">在线试用</a>
+                            <a href="https://github.com/flagos-ai" target="_blank" class="btn btn-outline">查看源码</a>
+                        </div>
                     </div>
                     <div class="component-card">
                         <h4>FlagGEMs</h4>
-                        <p>通用大模型算子库</p>
-                        <a href="components.html#flaggems" class="btn btn-outline">了解详情</a>
+                        <p>通用大模型算子库，提供高性能、跨芯片兼容的算子实现</p>
+                        <div class="component-actions">
+                            <a href="https://triton-copilot.baai.ac.cn/" target="_blank" class="btn btn-primary">在线试用</a>
+                            <a href="https://github.com/flagos-ai" target="_blank" class="btn btn-outline">查看源码</a>
+                        </div>
                     </div>
                     <div class="component-card">
                         <h4>FlagPerf</h4>
-                        <p>多芯片评测工具</p>
-                        <a href="components.html#flagperf" class="btn btn-outline">了解详情</a>
+                        <p>多芯片评测工具，提供公平、客观的AI芯片性能评测</p>
+                        <div class="component-actions">
+                            <a href="https://triton-copilot.baai.ac.cn/" target="_blank" class="btn btn-primary">在线试用</a>
+                            <a href="https://github.com/flagos-ai" target="_blank" class="btn btn-outline">查看源码</a>
+                        </div>
                     </div>
                     <div class="component-card">
                         <h4>FlagTree</h4>
-                        <p>统一编译器</p>
-                        <a href="components.html#flagtree" class="btn btn-outline">了解详情</a>
+                        <p>统一编译器，实现不同芯片架构的代码自动编译和优化</p>
+                        <div class="component-actions">
+                            <a href="https://triton-copilot.baai.ac.cn/" target="_blank" class="btn btn-primary">在线试用</a>
+                            <a href="https://github.com/flagos-ai" target="_blank" class="btn btn-outline">查看源码</a>
+                        </div>
                     </div>
                     <div class="component-card">
                         <h4>Triton Copilot</h4>
-                        <p>算子自动生成工具</p>
-                        <a href="components.html#triton-copilot" class="btn btn-outline">了解详情</a>
+                        <p>算子自动生成工具，基于AI技术自动生成高性能算子</p>
+                        <div class="component-actions">
+                            <a href="https://triton-copilot.baai.ac.cn/" target="_blank" class="btn btn-primary">在线试用</a>
+                            <a href="https://github.com/flagos-ai" target="_blank" class="btn btn-outline">查看源码</a>
+                        </div>
                     </div>
                     <div class="component-card">
                         <h4>FlagCX</h4>
-                        <p>统一通信库</p>
-                        <a href="components.html#flagcx" class="btn btn-outline">了解详情</a>
+                        <p>统一通信库，实现不同芯片间的高效通信和协同计算</p>
+                        <div class="component-actions">
+                            <a href="https://triton-copilot.baai.ac.cn/" target="_blank" class="btn btn-primary">在线试用</a>
+                            <a href="https://github.com/flagos-ai" target="_blank" class="btn btn-outline">查看源码</a>
+                        </div>
                     </div>
                     <div class="component-card">
                         <h4>FlagScale</h4>
-                        <p>训练推理并行框架</p>
-                        <a href="components.html#flagscale" class="btn btn-outline">了解详情</a>
+                        <p>训练推理并行框架，支持大规模分布式训练和推理</p>
+                        <div class="component-actions">
+                            <a href="https://triton-copilot.baai.ac.cn/" target="_blank" class="btn btn-primary">在线试用</a>
+                            <a href="https://github.com/flagos-ai" target="_blank" class="btn btn-outline">查看源码</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- 里程碑 -->
-        <section class="milestones">
+        <section class="milestones" id="milestones">
             <div class="container">
                 <h3>里程碑</h3>
                 <div class="milestones-timeline">
@@ -323,47 +843,30 @@
         </section>
 
         <!-- 会员与合作墙 -->
-        <section class="members-cooperation">
+        <section class="members-cooperation" id="members-cooperation">
             <div class="container">
                 <h3>会员与合作</h3>
-                <div class="members-grid">
-                    <div class="member-tier">
-                        <h4>芯片厂商</h4>
-                        <div class="member-logos">
-                            <span>华为</span>
-                            <span>寒武纪</span>
-                            <span>海光</span>
-                            <span>昆仑芯</span>
-                            <span>摩尔线程</span>
-                            <span>英伟达</span>
-                            <span>ARM</span>
-                        </div>
-                    </div>
-                    <div class="member-tier">
-                        <h4>服务器企业</h4>
-                        <div class="member-logos">
-                            <span>浪潮</span>
-                            <span>新华三</span>
-                        </div>
-                    </div>
-                    <div class="member-tier">
-                        <h4>高校科研</h4>
-                        <div class="member-logos">
-                            <span>清华</span>
-                            <span>北大</span>
-                            <span>中科大</span>
-                            <span>计算所</span>
-                        </div>
-                    </div>
-                    <div class="member-tier">
-                        <h4>核心合作</h4>
-                        <div class="member-logos">
-                            <span>PyTorch 基金会</span>
-                            <span>ITU 国际标准</span>
-                            <span>联合国 Open for SDG</span>
-                        </div>
+                
+                <!-- 芯片厂商 Logo 墙 -->
+                <div class="chip-vendors">
+                    <h4>合作芯片厂商</h4>
+                    <div class="vendors-grid">
+                        <div class="vendor-logo"><span>华为</span></div>
+                        <div class="vendor-logo"><span>寒武纪</span></div>
+                        <div class="vendor-logo"><span>海光</span></div>
+                        <div class="vendor-logo"><span>昆仑芯</span></div>
+                        <div class="vendor-logo"><span>摩尔线程</span></div>
+                        <div class="vendor-logo"><span>英伟达</span></div>
+                        <div class="vendor-logo"><span>ARM</span></div>
+                        <div class="vendor-logo"><span>浪潮</span></div>
+                        <div class="vendor-logo"><span>新华三</span></div>
+                        <div class="vendor-logo"><span>清华</span></div>
+                        <div class="vendor-logo"><span>北大</span></div>
+                        <div class="vendor-logo"><span>中科大</span></div>
                     </div>
                 </div>
+                
+                <!-- 案例亮点 -->
                 <div class="case-highlights">
                     <h4>案例亮点</h4>
                     <div class="cases-grid">
@@ -372,11 +875,21 @@
                         <div class="case-item">Qwen2.5-7B 推理提速 40%</div>
                     </div>
                 </div>
+                
+                <!-- 核心合作 -->
+                <div class="chip-vendors">
+                    <h4>核心合作伙伴</h4>
+                    <div class="vendors-grid">
+                        <div class="vendor-logo"><span>PyTorch 基金会</span></div>
+                        <div class="vendor-logo"><span>ITU 国际标准</span></div>
+                        <div class="vendor-logo"><span>联合国 Open for SDG</span></div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- 快速分流导航 -->
-        <section class="quick-nav">
+        <section class="quick-nav" id="quick-nav">
             <div class="container">
                 <h3>快速导航</h3>
                 <div class="quick-nav-grid">
@@ -426,15 +939,6 @@
                                 <li><a href="https://triton-copilot.baai.ac.cn/" target="_blank">Triton-Copilot</a></li>
                             </ul>
                         </div>
-                        <div class="link-category">
-                            <h5>社区渠道</h5>
-                            <ul>
-                                <li><a href="#">微信公众号：FlagOpen</a></li>
-                                <li><a href="#">CSDN 专栏</a></li>
-                                <li><a href="#" target="_blank">Slack 国际社群</a></li>
-                                <li><a href="https://github.com/flagos-ai/discussions" target="_blank">GitHub Discussions</a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="footer-section">
@@ -456,6 +960,17 @@
                         </ul>
                     </div>
                 </div>
+                <div class="footer-section">
+                    <h4>社区渠道</h4>
+                    <div class="community-links">
+                        <ul>
+                            <li><a href="#">微信公众号：FlagOpen</a></li>
+                            <li><a href="#">CSDN 专栏</a></li>
+                            <li><a href="#" target="_blank">Slack 国际社群</a></li>
+                            <li><a href="https://github.com/flagos-ai/discussions" target="_blank">GitHub Discussions</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 FlagOS 开源社区. All rights reserved.</p>
@@ -465,5 +980,83 @@
 
     <!-- JavaScript -->
     <script src="js/script.js"></script>
+    
+    <!-- 主题切换脚本 -->
+    <script>
+        // 暗黑模式切换
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        // 检查本地存储中的主题偏好
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.body.classList.add('dark-mode');
+            themeToggle.checked = true;
+        }
+        
+        // 切换主题
+        themeToggle.addEventListener('change', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // 搜索功能
+        const searchInput = document.querySelector('.search-input');
+        const searchBtn = document.querySelector('.search-btn');
+        
+        searchBtn.addEventListener('click', () => {
+            performSearch();
+        });
+        
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (query) {
+                console.log('搜索:', query);
+                // 这里可以添加实际的搜索逻辑
+                alert(`搜索 "${query}"，搜索功能开发中...`);
+            }
+        }
+        
+        // 侧边栏切换功能
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        // 移除自动添加的类，让CSS hover效果控制侧边栏
+        document.body.classList.remove('sidebar-expanded');
+        document.body.classList.remove('sidebar-collapsed');
+        
+        // 切换侧边栏
+        sidebarToggle.addEventListener('click', () => {
+            document.body.classList.toggle('sidebar-expanded');
+            document.body.classList.toggle('sidebar-collapsed');
+            
+            // 保存侧边栏状态到本地存储
+            if (document.body.classList.contains('sidebar-expanded')) {
+                localStorage.setItem('sidebar', 'expanded');
+            } else {
+                localStorage.setItem('sidebar', 'collapsed');
+            }
+        });
+        
+        // 根据当前页面设置侧边栏激活状态
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav li a');
+        
+        sidebarLinks.forEach(link => {
+            const linkPage = link.getAttribute('href');
+            if (linkPage === currentPage) {
+                link.classList.add('active');
+            }
+        });
+    </script>
 </body>
 </html>
