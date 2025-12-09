@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FlagOS - 统一 AI 芯片生态，让跨芯开发像用 Linux 一样简单。AI 跨芯片开源生态治理与赋能平台">
+    <meta name="keywords" content="FlagOS, AI 芯片, 开源生态, 跨芯片开发, 统一 AI 系统">
+    <meta name="author" content="FlagOS 开源社区">
+    <meta property="og:title" content="FlagOS - AI 跨芯片开源生态治理与赋能平台">
+    <meta property="og:description" content="统一 AI 芯片生态，让跨芯开发像用 Linux 一样简单">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.flagos.net">
+    <link rel="canonical" href="https://www.flagos.net">
+    <title>FlagOS落地执行手册 - 量化指标与落地执行</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- 引入图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="alternate" href="https://www.flagos.net/en" hreflang="en" />
+    <link rel="alternate" href="https://www.flagos.net/zh" hreflang="zh-CN" />
+    <link rel="alternate" href="https://www.flagos.net/" hreflang="x-default" />
+    <!-- 引入ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        /* 全局搜索样式 - 与其他页面保持一致 */
+        .search-container {
+            position: relative;
+            margin: 0 16px;
+        }
+        
+        .search-input {
+            width: 200px;
+            padding: 10px 40px 10px 16px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 25px;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        .search-input:focus {
+            width: 250px;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        
+        .search-btn:hover {
+            color: #3b82f6;
+        }
+        
+        /* 暗黑模式切换样式 - 与其他页面保持一致 */
+        .theme-switcher {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+            margin: 0 16px;
+        }
+        
+        .theme-switcher input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .theme-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e1;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .theme-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .theme-slider {
+            background-color: #3b82f6;
+        }
+        
+        input:checked + .theme-slider:before {
+            transform: translateX(20px);
+        }
+        
+        /* 暗黑模式样式 - 与其他页面保持一致 */
+        body.dark-mode {
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+        
+        body.dark-mode .navbar {
+            background-color: rgba(15, 23, 42, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        body.dark-mode .navbar .logo h1 {
+            color: #3b82f6;
+        }
+        
+        body.dark-mode .nav-menu li a {
+            color: #94a3b8;
+        }
+        
+        body.dark-mode .nav-menu li a:hover {
+            color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        
+        body.dark-mode section {
+            background-color: #1e293b;
+        }
+        
+        body.dark-mode section:nth-child(even) {
+            background-color: #0f172a;
+        }
+        
+        body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 {
+            color: #f8fafc;
+        }
+        
+        body.dark-mode p, body.dark-mode li {
+            color: #cbd5e1;
+        }
+        
+        /* 落地执行页面自定义样式 */
+        .chart-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+            min-height: 400px;
+        }
+        
+        .chart-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .phase-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .phase-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border: none;
+            font-size: 1rem;
+            margin-right: 5px;
+            border-radius: 5px 5px 0 0;
+            transition: background-color 0.3s;
+        }
+        
+        .phase-tab.active {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .phase-content {
+            display: none;
+        }
+        
+        .phase-content.active {
+            display: block;
+        }
+        
+        .metric-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .metric-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .metric-description {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .metric-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .tool-step {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .step-number {
+            background-color: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .step-content {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>FlagOS</h1>
+            </div>
+            <div class="nav-container">
+                <ul class="nav-menu">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="about.html">关于 FlagOS</a></li>
+                    <li><a href="components.html">核心组件</a></li>
+                    <li><a href="ecosystem.html">扩展生态</a></li>
+                    <li><a href="docs.html">文档中心</a></li>
+                    <li><a href="flagos-detailed-execution.html" class="active">落地执行</a></li>
+                    <li><a href="models.html">模型仓库</a></li>
+                    <li><a href="community.html">社区中心</a></li>
+                    <li><a href="partners.html">合作伙伴</a></li>
+                    <li><a href="news.html">新闻动态</a></li>
+                    <li><a href="contact.html">联系我们</a></li>
+                </ul>
+                
+                <!-- 全局搜索 -->
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="搜索组件、文档、模型...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+            
+            <div class="nav-actions">
+                <!-- 暗黑模式切换 -->
+                <label class="theme-switcher">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="theme-slider"></span>
+                </label>
+                
+                <div class="language-switcher">
+                    <a href="#" class="active">中文</a>
+                    <span>/</span>
+                    <a href="#">English</a>
+                </div>
+                
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 侧边栏切换按钮 -->
+    <button class="sidebar-toggle" id="sidebar-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- 侧边栏 -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>页面导航</h3>
+        </div>
+        <ul class="sidebar-nav">
+            <li><a href="#quant指标体系" class="active"><i class="fas fa-chart-line"></i> 量化指标体系</a></li>
+            <li><a href="#division-matrix"><i class="fas fa-table"></i> 核心分工矩阵</a></li>
+            <li><a href="#phase-tasks"><i class="fas fa-tasks"></i> 分阶段任务执行</a></li>
+            <li><a href="#support-tools"><i class="fas fa-tools"></i> 核心支撑工具</a></li>
+            <li><a href="#closed-loop"><i class="fas fa-closed-captioning"></i> 闭环管理流程</a></li>
+        </ul>
+    </aside>
+    
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <div class="container">
+            <h1>FlagOS落地执行手册 - 量化指标与落地执行</h1>
+            
+            <div class="nav">
+                <button class="nav-btn" onclick="scrollToSection('quant指标体系')">量化指标体系</button>
+                <button class="nav-btn" onclick="scrollToSection('division-matrix')">核心分工矩阵</button>
+                <button class="nav-btn" onclick="scrollToSection('phase-tasks')">分阶段任务执行</button>
+                <button class="nav-btn" onclick="scrollToSection('support-tools')">核心支撑工具</button>
+                <button class="nav-btn" onclick="scrollToSection('closed-loop')">闭环管理流程</button>
+            </div>
+        
+        <!-- 量化指标体系 -->
+        <div id="quant指标体系" class="section">
+            <h2>一、项目量化指标体系</h2>
+            
+            <div class="chart-container">
+                <div class="chart-title">FlagOS项目三阶段量化指标分布</div>
+                <div id="metricDistributionChart" style="width: 100%; height: 400px;"></div>
+            </div>
+            
+            <div class="phase-tabs">
+                <button class="phase-tab active" onclick="showPhase('phase1')">第一阶段：基础建设期(0-6个月)</button>
+                <button class="phase-tab" onclick="showPhase('phase2')">第二阶段：生态规模化期(6-18个月)</button>
+                <button class="phase-tab" onclick="showPhase('phase3')">第三阶段：规则制定期(18-36个月)</button>
+            </div>
+            
+            <!-- 第一阶段量化指标 -->
+            <div id="phase1" class="phase-content active">
+                <h3>1.1 技术产品模块量化指标</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>建设内容</th>
+                                <th>具体行动</th>
+                                <th>量化验收指标</th>
+                                <th>评估方法</th>
+                                <th>数据来源</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>核心组件开发</td>
+                                <td>FlagGEMs迭代3版，覆盖200+核心算子；FlagTree完成编译优化算法开发；FlagCX实现基础通信协议</td>
+                                <td>算子覆盖率100%，内部测试通过</td>
+                                <td>内部测试报告，代码覆盖率统计</td>
+                                <td>代码仓库，测试报告存档库</td>
+                            </tr>
+                            <tr>
+                                <td>多芯片适配</td>
+                                <td>与17家厂商签订适配协议；开发芯片适配模板；完成25款芯片适配测试</td>
+                                <td>适配AI芯片≥25款（国产主流≥15款，海外≥10款）</td>
+                                <td>第三方测试机构出具的硬件适配报告</td>
+                                <td>适配测试报告存档库，厂商合作对接群记录</td>
+                            </tr>
+                            <tr>
+                                <td>框架兼容适配</td>
+                                <td>完成PyTorch/Paddle/TensorFlow接口对接；开发500+兼容测试用例；自动化测试平台部署</td>
+                                <td>框架兼容通过率100%（单框架测试用例≥500个）</td>
+                                <td>自动化测试平台（Jenkins）生成的框架兼容性报告</td>
+                                <td>Jenkins测试后台，框架兼容用例库</td>
+                            </tr>
+                            <tr>
+                                <td>性能优化验证</td>
+                                <td>浪潮超节点测试环境搭建；开展3轮性能压测；输出优化报告并迭代</td>
+                                <td>昇腾算子性能提升≥10%，Qwen2.5-7B推理提速≥40%</td>
+                                <td>FlagPerf评测工具输出的性能对比数据，录制压测视频存档</td>
+                                <td>FlagPerf评测平台数据库，压测视频存储服务器</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h3>1.2 生态建设模块量化指标</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>建设内容</th>
+                                <th>具体行动</th>
+                                <th>量化验收指标</th>
+                                <th>评估方法</th>
+                                <th>数据来源</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>开源基金会成立</td>
+                                <td>向智源研究院提交注册材料，制定治理章程</td>
+                                <td>基金会完成注册，治理章程公示率100%</td>
+                                <td>基金会注册证书，治理章程GitHub开源链接</td>
+                                <td>基金会行政档案，GitHub公示页面</td>
+                            </tr>
+                            <tr>
+                                <td>技术标准发布</td>
+                                <td>组织10场厂商研讨会，编制2项标准草案并公开征求意见</td>
+                                <td>发布2项标准，17家厂商签署适配承诺书</td>
+                                <td>标准文档开源页面，厂商承诺书扫描件</td>
+                                <td>标准制定项目组文档库，厂商合作邮箱记录</td>
+                            </tr>
+                            <tr>
+                                <td>社区初始搭建</td>
+                                <td>搭建GitHub仓库及权限体系，发布新手贡献指南，组织首次社区贡献活动</td>
+                                <td>全球贡献者≥404人（代码贡献者≥150人，文档贡献者≥254人）</td>
+                                <td>GitHub贡献者统计面板，贡献类型分类台账</td>
+                                <td>GitHub API接口数据，社区贡献统计后台</td>
+                            </tr>
+                            <tr>
+                                <td>核心伙伴联动</td>
+                                <td>招募36家企业开展POC，制定POC验收标准，收集企业反馈并迭代</td>
+                                <td>36家企业POC完成率100%，满意度≥85%</td>
+                                <td>POC验收报告，企业满意度调研问卷</td>
+                                <td>企业服务平台POC管理模块，问卷星后台</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h3>1.3 其他模块量化指标</h3>
+                <div class="chart-container">
+                    <div class="chart-title">第一阶段其他模块量化指标</div>
+                    <div id="phase1OtherMetricsChart" style="width: 100%; height: 400px;"></div>
+                </div>
+            </div>
+            
+            <!-- 第二阶段量化指标 -->
+            <div id="phase2" class="phase-content">
+                <h3>2.1 技术产品模块量化指标</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>建设内容</th>
+                                <th>具体行动</th>
+                                <th>量化验收指标</th>
+                                <th>评估方法</th>
+                                <th>数据来源</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>芯片适配扩容</td>
+                                <td>新增海外小众芯片适配合作≥5家，开发通用适配模板</td>
+                                <td>适配AI芯片≥40款（海外小众≥5款，新增适配耗时≤72小时/款）</td>
+                                <td>新增芯片适配测试报告，通用适配模板验收记录</td>
+                                <td>适配测试报告存档库，通用模板文档库</td>
+                            </tr>
+                            <tr>
+                                <td>模型自动迁移能力升级</td>
+                                <td>研发FlagRelease模型自动迁移工具，支持200+主流模型</td>
+                                <td>模型自动迁移成功率≥90%（单模型迁移耗时≤2小时）</td>
+                                <td>FlagRelease工具迁移日志，模型迁移成功率统计面板</td>
+                                <td>FlagRelease工具后台，模型库管理系统</td>
+                            </tr>
+                            <tr>
+                                <td>工具链优化</td>
+                                <td>优化Triton-Copilot代码生成逻辑，新增错误修复功能</td>
+                                <td>Triton-Copilot代码生成准确率≥85%，错误修复响应时间≤10分钟</td>
+                                <td>代码生成样本人工评审表，错误修复工单记录</td>
+                                <td>人工评审台账，客服工单系统</td>
+                            </tr>
+                            <tr>
+                                <td>性能持续提升</td>
+                                <td>迭代FlagGEMs算子库至5.0版本，新增50+优化算子</td>
+                                <td>跨芯片推理性能平均提升≥45%（对比第一阶段）</td>
+                                <td>FlagPerf评测平台多阶段性能对比数据</td>
+                                <td>FlagPerf评测平台历史数据库</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h3>2.2 生态建设模块量化指标</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>建设内容</th>
+                                <th>具体行动</th>
+                                <th>量化验收指标</th>
+                                <th>评估方法</th>
+                                <th>数据来源</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>社区激励强化</td>
+                                <td>制定贡献积分规则，开发积分兑换系统（对接认证/赛事）</td>
+                                <td>核心开发者≥200人，社区维护者≥20人，积分兑换率≥30%</td>
+                                <td>GitHub贡献者分级统计，积分兑换系统记录</td>
+                                <td>GitHub API数据，积分系统后台</td>
+                            </tr>
+                            <tr>
+                                <td>平台资源整合</td>
+                                <td>打通GitHub与Hugging Face/ModelScope接口，实现资源状态同步</td>
+                                <td>资源状态同步率100%（模型迁移状态更新延迟≤1小时）</td>
+                                <td>跨平台接口调用日志，状态同步监控面板</td>
+                                <td>接口对接日志，监控平台数据</td>
+                            </tr>
+                            <tr>
+                                <td>高校合作落地</td>
+                                <td>与10所高校签订合作协议，共建5门课程</td>
+                                <td>合作高校≥10所，课程大纲通过评审，开课≥30班次</td>
+                                <td>高校合作协议，课程大纲评审意见，开课记录</td>
+                                <td>高校合作档案库，课程管理系统</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 第三阶段量化指标 -->
+            <div id="phase3" class="phase-content">
+                <h3>3.1 技术产品模块量化指标</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>建设内容</th>
+                                <th>具体行动</th>
+                                <th>量化验收指标</th>
+                                <th>评估方法</th>
+                                <th>数据来源</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>国际标准主导</td>
+                                <td>联合ITU推进《多芯片算子接口标准》公示，组织10场国际评审会</td>
+                                <td>主导国际标准≥2项（ITU发布≥1项）</td>
+                                <td>ITU标准发布文件，国际评审会记录</td>
+                                <td>标准制定档案库，ITU官方文件</td>
+                            </tr>
+                            <tr>
+                                <td>全栈闭环完善</td>
+                                <td>开发FlagOS企业版全栈功能，支持端边云全场景部署</td>
+                                <td>企业版私有化部署成功率≥99%（部署耗时≤7天），全场景适配覆盖率100%</td>
+                                <td>企业版部署验收报告，全场景适配测试数据</td>
+                                <td>企业版运维后台，适配测试报告</td>
+                            </tr>
+                            <tr>
+                                <td>API平台开放</td>
+                                <td>开放50+API接口，提供开发者文档与测试工具</td>
+                                <td>API接口调用量≥10万次/月，第三方集成≥30家</td>
+                                <td>API调用日志，第三方集成合作协议</td>
+                                <td>API网关日志，合作合同归档库</td>
+                            </tr>
+                            <tr>
+                                <td>垂直场景适配</td>
+                                <td>针对金融、制造等10个行业开发定制化解决方案</td>
+                                <td>垂直行业解决方案落地案例≥50家/行业，客户续约率≥90%</td>
+                                <td>行业解决方案验收报告，续约合同</td>
+                                <td>行业解决方案项目库，销售CRM系统</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h3>3.2 生态建设模块量化指标</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>建设内容</th>
+                                <th>具体行动</th>
+                                <th>量化验收指标</th>
+                                <th>评估方法</th>
+                                <th>数据来源</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>生态网络成熟</td>
+                                <td>拓展芯片厂商合作至30家，建立生态合作伙伴联盟</td>
+                                <td>芯片厂商共建≥30家，企业落地案例≥200家，生态合作伙伴联盟成员≥100家</td>
+                                <td>合作协议，联盟成立文件，落地案例清单</td>
+                                <td>生态合作档案库，案例管理系统</td>
+                            </tr>
+                            <tr>
+                                <td>开源贡献爆发</td>
+                                <td>举办全球开源峰会≥5场，吸引核心贡献者</td>
+                                <td>全球贡献者≥3000人，核心开发者≥500人，年度代码提交量≥10万行</td>
+                                <td>GitHub贡献统计，峰会参会记录</td>
+                                <td>GitHub API数据，峰会管理平台</td>
+                            </tr>
+                            <tr>
+                                <td>产学研深度融合</td>
+                                <td>联合高校开展20项科研项目，申请50项技术专利</td>
+                                <td>科研项目结题率≥100%，技术专利授权≥50项</td>
+                                <td>科研项目结题报告，专利授权证书</td>
+                                <td>科研项目管理系统，专利档案库</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 核心分工矩阵 -->
+    <div id="division-matrix" class="section">
+        <h2>二、核心分工矩阵</h2>
+        
+        <div class="chart-container">
+            <div class="chart-title">项目模块与团队分工关系</div>
+            <div id="divisionMatrixChart" style="width: 100%; height: 500px;"></div>
+        </div>
+        
+        <div class="table-container">
+            <h3>核心分工矩阵详情</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>模块</th>
+                        <th>责任团队</th>
+                        <th>协作团队</th>
+                        <th>决策人</th>
+                        <th>核心执行角色</th>
+                        <th>协作频率</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>技术产品</td>
+                        <td>核心技术部（含算子组/编译组/适配组）</td>
+                        <td>质量测试部、芯片厂商技术团队、运维部</td>
+                        <td>CTO/技术负责人</td>
+                        <td>组件开发工程师、适配工程师、性能工程师、测试工程师</td>
+                        <td>每周2次同步会</td>
+                    </tr>
+                    <tr>
+                        <td>生态建设</td>
+                        <td>生态发展部</td>
+                        <td>核心技术部、品牌公关部、高校合作部</td>
+                        <td>生态负责人</td>
+                        <td>社区运营、标准专员、合作经理、高校对接专员</td>
+                        <td>每周1次同步会，每月1次生态复盘会</td>
+                    </tr>
+                    <tr>
+                        <td>商业模式</td>
+                        <td>销售部+产品商业化组</td>
+                        <td>核心技术部、财务部、法务部</td>
+                        <td>COO/商业负责人</td>
+                        <td>销售顾问、会员运营、商务谈判专员、财务对接人</td>
+                        <td>每周3次销售例会，每月1次收入复盘会</td>
+                    </tr>
+                    <tr>
+                        <td>用户增长</td>
+                        <td>用户运营部</td>
+                        <td>品牌公关部、生态发展部、技术产品部</td>
+                        <td>用户增长负责人</td>
+                        <td>开发者运营、企业运营、活动策划、数据分析师</td>
+                        <td>每周2次运营例会，每两周1次活动复盘会</td>
+                    </tr>
+                    <tr>
+                        <td>品牌传播</td>
+                        <td>品牌公关部</td>
+                        <td>生态发展部、用户运营部、技术产品部</td>
+                        <td>品牌负责人</td>
+                        <td>内容策划、媒体对接、设计专员、国际传播专员</td>
+                        <td>每周1次内容例会，每月1次传播效果复盘会</td>
+                    </tr>
+                    <tr>
+                        <td>运营迭代</td>
+                        <td>项目管理部</td>
+                        <td>所有业务及技术团队</td>
+                        <td>项目经理/项目总监</td>
+                        <td>进度管理专员、数据监控专员、流程优化专员</td>
+                        <td>每日站会，每周1次全项目进度会</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- 分阶段任务执行 -->
+    <div id="phase-tasks" class="section">
+        <h2>三、分阶段任务落地执行细则</h2>
+        
+        <div class="phase-tabs">
+            <button class="phase-tab active" onclick="showTaskPhase('task-phase1')">第一阶段：基础建设期(0-6个月)</button>
+            <button class="phase-tab" onclick="showTaskPhase('task-phase2')">第二阶段：生态规模化期(6-18个月)</button>
+            <button class="phase-tab" onclick="showTaskPhase('task-phase3')">第三阶段：规则制定期(18-36个月)</button>
+        </div>
+        
+        <!-- 第一阶段任务 -->
+        <div id="task-phase1" class="phase-content active">
+            <div class="chart-container">
+                <div class="chart-title">第一阶段核心任务甘特图</div>
+                <div id="phase1GanttChart" style="width: 100%; height: 600px;"></div>
+            </div>
+            
+            <h3>3.1 技术产品模块核心任务</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>任务ID</th>
+                            <th>建设内容</th>
+                            <th>具体行动</th>
+                            <th>起止时间</th>
+                            <th>责任角色</th>
+                            <th>依赖项</th>
+                            <th>里程碑</th>
+                            <th>风险应对</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>TP-01</td>
+                            <td>核心组件开发（FlagGEMs/FlagTree/FlagCX）</td>
+                            <td>1. FlagGEMs迭代3版，覆盖200+核心算子；2. FlagTree完成编译优化算法开发；3. FlagCX实现基础通信协议</td>
+                            <td>第1-8周</td>
+                            <td>算子组工程师×8、架构师×2</td>
+                            <td>无</td>
+                            <td>第8周完成内部测试，算子覆盖率100%</td>
+                            <td>算子优化不达标：启用备用优化方案，联合高校实验室技术支持</td>
+                        </tr>
+                        <tr>
+                            <td>TP-02</td>
+                            <td>多芯片适配</td>
+                            <td>1. 与17家厂商签订适配协议；2. 开发芯片适配模板；3. 完成25款芯片适配测试</td>
+                            <td>第4-22周</td>
+                            <td>适配工程师×12、测试工程师×6</td>
+                            <td>TP-01核心组件开发完成</td>
+                            <td>第22周通过第三方适配测试，适配率100%</td>
+                            <td>厂商硬件延迟：提前储备3家替代厂商资源，并行启动适配</td>
+                        </tr>
+                        <tr>
+                            <td>TP-03</td>
+                            <td>框架兼容适配</td>
+                            <td>1. 完成PyTorch/Paddle/TensorFlow接口对接；2. 开发500+兼容测试用例；3. 自动化测试平台部署</td>
+                            <td>第6-12周</td>
+                            <td>框架工程师×4、自动化测试工程师×3</td>
+                            <td>TP-01核心组件开发完成</td>
+                            <td>第12周Jenkins测试通过率100%</td>
+                            <td>框架接口变更：安排1名工程师专职跟踪框架更新，提前预留适配时间</td>
+                        </tr>
+                        <tr>
+                            <td>TP-04</td>
+                            <td>性能优化验证</td>
+                            <td>1. 浪潮超节点测试环境搭建；2. 开展3轮性能压测；3. 输出优化报告并迭代</td>
+                            <td>第20-24周</td>
+                            <td>性能工程师×5、运维工程师×2</td>
+                            <td>TP-02、TP-03完成</td>
+                            <td>第24周昇腾算子提速≥10%，Qwen2.5-7B推理提速≥40%</td>
+                            <td>超节点资源冲突：提前1周预约资源，制定夜间压测备用方案</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>3.2 生态建设模块核心任务</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>任务ID</th>
+                            <th>建设内容</th>
+                            <th>具体行动</th>
+                            <th>起止时间</th>
+                            <th>责任角色</th>
+                            <th>依赖项</th>
+                            <th>里程碑</th>
+                            <th>风险应对</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>EC-01</td>
+                            <td>开源基金会成立</td>
+                            <td>1. 向智源研究院提交注册材料；2. 制定三方共治章程；3. 完成基金会注册公示</td>
+                            <td>第1-6周</td>
+                            <td>生态负责人×1、法务专员×2</td>
+                            <td>无</td>
+                            <td>第6周基金会注册完成，章程公示率100%</td>
+                            <td>注册材料驳回：提前与智源研究院沟通，聘请专业机构协助审核材料</td>
+                        </tr>
+                        <tr>
+                            <td>EC-02</td>
+                            <td>技术标准发布</td>
+                            <td>1. 组织10场厂商研讨会；2. 编制2项标准草案；3. 公开征求意见并发布</td>
+                            <td>第3-18周</td>
+                            <td>标准专员×3、技术架构师×2</td>
+                            <td>TP-01核心组件技术方案确定</td>
+                            <td>第18周发布2项标准，17家厂商签署适配承诺</td>
+                            <td>厂商意见分歧：成立标准协调小组，以技术可行性为核心达成共识</td>
+                        </tr>
+                        <tr>
+                            <td>EC-03</td>
+                            <td>社区初始搭建</td>
+                            <td>1. 搭建GitHub仓库及权限体系；2. 发布新手贡献指南；3. 组织首次社区贡献活动</td>
+                            <td>第4-10周</td>
+                            <td>社区运营×4、技术文档工程师×2</td>
+                            <td>TP-01核心组件基础版开发完成</td>
+                            <td>第10周全球贡献者≥400人</td>
+                            <td>贡献者参与度低：设计“首次贡献送认证资格”激励机制</td>
+                        </tr>
+                        <tr>
+                            <td>EC-04</td>
+                            <td>核心伙伴联动</td>
+                            <td>1. 招募36家企业开展POC；2. 制定POC验收标准；3. 收集企业反馈并迭代</td>
+                            <td>第8-24周</td>
+                            <td>合作经理×6、技术支持工程师×4</td>
+                            <td>TP-02芯片适配完成30%</td>
+                            <td>第24周POC完成率100%，满意度≥85%</td>
+                            <td>POC效果不佳：安排1对1技术支持，针对性优化适配方案</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- 第二阶段任务 -->
+        <div id="task-phase2" class="phase-content">
+            <h3>4.1 核心模块重点任务</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>模块</th>
+                            <th>任务ID</th>
+                            <th>建设内容</th>
+                            <th>关键行动</th>
+                            <th>起止时间</th>
+                            <th>核心指标</th>
+                            <th>责任角色</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>技术产品</td>
+                            <td>TP-05</td>
+                            <td>芯片适配扩容+模型迁移工具开发</td>
+                            <td>1. 适配海外小众芯片≥5款；2. 研发FlagRelease支持200+模型迁移；3. 优化Triton-Copilot</td>
+                            <td>第25-60周</td>
+                            <td>芯片适配≥40款，迁移成功率≥90%</td>
+                            <td>适配工程师×15、AI工具开发工程师×5</td>
+                        </tr>
+                        <tr>
+                            <td>生态建设</td>
+                            <td>EC-05</td>
+                            <td>社区激励+高校合作</td>
+                            <td>1. 搭建贡献积分兑换系统；2. 与10所高校共建5门课程；3. 打通跨平台资源同步</td>
+                            <td>第25-72周</td>
+                            <td>核心开发者≥200人，高校合作≥10所</td>
+                            <td>社区运营×6、高校对接专员×3</td>
+                        </tr>
+                        <tr>
+                            <td>商业模式</td>
+                            <td>BM-02</td>
+                            <td>会员扩张+增值服务变现</td>
+                            <td>1. 开展10场全国推广会；2. 组建20人企业服务团队；3. 落地人才认证体系</td>
+                            <td>第25-72周</td>
+                            <td>会员≥150家，服务收入占比≥40%</td>
+                            <td>销售顾问×15、认证运营×4</td>
+                        </tr>
+                        <tr>
+                            <td>用户增长</td>
+                            <td>UG-02</td>
+                            <td>品牌赛事+开发者成长闭环</td>
+                            <td>1. 举办全球开放计算大赛；2. 开展20场线下workshop；3. 优化开发者成长路径</td>
+                            <td>第30-72周</td>
+                            <td>参赛队伍≥500支，转化率≥30%</td>
+                            <td>活动策划×5、开发者运营×8</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- 第三阶段任务 -->
+        <div id="task-phase3" class="phase-content">
+            <h3>5.1 核心模块重点任务</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>模块</th>
+                            <th>任务ID</th>
+                            <th>建设内容</th>
+                            <th>关键行动</th>
+                            <th>起止时间</th>
+                            <th>核心指标</th>
+                            <th>责任角色</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>技术产品</td>
+                            <td>TP-06</td>
+                            <td>国际标准主导+全栈闭环</td>
+                            <td>1. 推进ITU国际标准发布；2. 开发企业版全栈功能；3. 开放50+API接口</td>
+                            <td>第73-144周</td>
+                            <td>主导国际标准≥2项，API调用≥10万次/月</td>
+                            <td>标准工程师×4、全栈开发工程师×10</td>
+                        </tr>
+                        <tr>
+                            <td>生态建设</td>
+                            <td>EC-06</td>
+                            <td>生态网络+产学研融合</td>
+                            <td>1. 成立生态合作伙伴联盟；2. 开展20项科研项目；3. 申请50项专利</td>
+                            <td>第73-144周</td>
+                            <td>合作厂商≥30家，专利授权≥50项</td>
+                            <td>合作经理×8、科研对接专员×3</td>
+                        </tr>
+                        <tr>
+                            <td>商业模式</td>
+                            <td>BM-03</td>
+                            <td>收入优化+盈利稳定</td>
+                            <td>1. 新增数据增值服务；2. 搭建全球销售网络；3. 推出年度服务套餐</td>
+                            <td>第73-144周</td>
+                            <td>年收入≥1亿元，续约率≥95%</td>
+                            <td>销售总监×2、商业产品经理×3</td>
+                        </tr>
+                        <tr>
+                            <td>品牌传播</td>
+                            <td>BC-02</td>
+                            <td>全球权威确立</td>
+                            <td>1. 顶会举办专场≥10场；2. 发布报告≥10份；3. 主导行业标准≥10项</td>
+                            <td>第73-144周</td>
+                            <td>报告下载≥50万次，标准引用率≥80%</td>
+                            <td>国际传播专员×4、内容总监×1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 核心支撑工具 -->
+    <div id="support-tools" class="section">
+        <h2>四、核心支撑工具与模板</h2>
+        
+        <h3>4.1 数据统计模板</h3>
+        <div class="table-container">
+            <h4>技术产品模块数据统计模板示例</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>指标名称</th>
+                        <th>阶段目标</th>
+                        <th>本月实际值</th>
+                        <th>累计实际值</th>
+                        <th>达成率</th>
+                        <th>测试时间</th>
+                        <th>测试人员</th>
+                        <th>数据来源</th>
+                        <th>异常说明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>AI芯片适配数量</td>
+                        <td>25款（0-6月）</td>
+                        <td>5款</td>
+                        <td>15款</td>
+                        <td>60%</td>
+                        <td>202X-XX-XX</td>
+                        <td>张XX</td>
+                        <td>适配测试报告库</td>
+                        <td>无，按计划推进</td>
+                    </tr>
+                    <tr>
+                        <td>昇腾算子性能提升</td>
+                        <td>≥10%</td>
+                        <td>11.2%</td>
+                        <td>11.2%</td>
+                        <td>112%</td>
+                        <td>202X-XX-XX</td>
+                        <td>李XX</td>
+                        <td>FlagPerf平台</td>
+                        <td>新增3个优化算子，效果超预期</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <h3>4.2 核心评估工具操作指南</h3>
+        <div class="metric-card">
+            <div class="metric-header">
+                <div class="metric-title">FlagPerf性能测试工具</div>
+            </div>
+            <div class="metric-description">FlagPerf是FlagOS项目的核心性能评估工具，用于测试和比较不同芯片在FlagOS平台上的性能表现。</div>
+            
+            <div class="tool-step">
+                <div class="step-number">1</div>
+                <div class="step-title">环境准备（10分钟）</div>
+                <div class="step-content">登录FlagPerf平台→创建"多芯片性能对比"任务→导入芯片配置JSON文件（厂商提供）→选择测试模型（如Qwen2.5-7B）</div>
+            </div>
+            
+            <div class="tool-step">
+                <div class="step-number">2</div>
+                <div class="step-title">参数配置（5分钟）</div>
+                <div class="step-content">设置并发数（与生产环境一致，建议16）→勾选"吞吐量""延迟""性能提升百分比"核心指标→启动测试</div>
+            </div>
+            
+            <div class="tool-step">
+                <div class="step-number">3</div>
+                <div class="step-title">数据校验（3分钟）</div>
+                <div class="step-content">测试完成后，检查报告是否包含"环境配置""用例清单""原始日志"三项内容，缺失则重新测试</div>
+            </div>
+            
+            <div class="tool-step">
+                <div class="step-number">4</div>
+                <div class="step-title">报告导出（2分钟）</div>
+                <div class="step-content">选择"Excel+PDF"双格式导出，提交至数据统计平台归档</div>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">FlagPerf测试流程</div>
+            <div id="toolFlowChart" style="width: 100%; height: 400px;"></div>
+        </div>
+    </div>
+    
+    <!-- 闭环管理流程 -->
+    <div id="closed-loop" class="section">
+        <h2>五、闭环管理流程</h2>
+        
+        <div class="chart-container">
+            <div class="chart-title">任务执行闭环流程图</div>
+            <div id="closedLoopChart" style="width: 100%; height: 500px;"></div>
+        </div>
+        
+        <h3>5.1 任务执行闭环</h3>
+        <div class="metric-card">
+            <div class="tool-step">
+                <div class="step-number">1</div>
+                <div class="step-title">任务分配</div>
+                <div class="step-content">项目经理通过Jira创建任务，明确责任角色、截止时间及验收标准，同步至对应团队</div>
+            </div>
+            
+            <div class="tool-step">
+                <div class="step-number">2</div>
+                <div class="step-title">执行跟踪</div>
+                <div class="step-content">每日站会同步进度，风险任务标注"红色预警"并启动应对方案</div>
+            </div>
+            
+            <div class="tool-step">
+                <div class="step-number">3</div>
+                <div class="step-title">数据上报</div>
+                <div class="step-content">每周五18:00前，各团队通过数据统计模板提交指标数据，经部门负责人审核后上报项目管理部</div>
+            </div>
+            
+            <div class="tool-step">
+                <div class="step-number">4</div>
+                <div class="step-title">评估复盘</div>
+                <div class="step-content">每月末开展复盘会，对照指标达成情况输出《复盘报告》，明确亮点与改进项</div>
+            </div>
+            
+            <div class="tool-step">
+                <div class="step-number">5</div>
+                <div class="step-title">异常整改</div>
+                <div class="step-content">指标偏差＞10%时，责任团队24小时内提交《偏差分析报告》，制定整改措施并纳入下阶段任务</div>
+            </div>
+        </div>
+        
+        <h3>5.2 核心交付物清单</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>交付物类型</th>
+                        <th>交付物名称</th>
+                        <th>交付时间</th>
+                        <th>交付方式</th>
+                        <th>责任人</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>计划类</td>
+                        <td>阶段任务计划表</td>
+                        <td>阶段开始前1周</td>
+                        <td>Jira导出</td>
+                        <td>项目经理</td>
+                    </tr>
+                    <tr>
+                        <td>数据类</td>
+                        <td>每周指标数据统计表</td>
+                        <td>每周五18:00前</td>
+                        <td>Excel</td>
+                        <td>各团队负责人</td>
+                    </tr>
+                    <tr>
+                        <td>报告类</td>
+                        <td>月度复盘报告</td>
+                        <td>每月末</td>
+                        <td>Word+PPT</td>
+                        <td>项目管理部</td>
+                    </tr>
+                    <tr>
+                        <td>测试类</td>
+                        <td>测试报告及原始日志</td>
+                        <td>测试完成后3天内</td>
+                        <td>PDF+压缩包</td>
+                        <td>测试工程师</td>
+                    </tr>
+                    <tr>
+                        <td>整改类</td>
+                        <td>异常整改方案及验证报告</td>
+                        <td>偏差发现后24小时内</td>
+                        <td>Word</td>
+                        <td>责任团队</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>全球资源链接</h4>
+                    <div class="resources-links">
+                        <div class="link-category">
+                            <h5>开源平台</h5>
+                            <ul>
+                                <li><a href="https://github.com/flagos-ai" target="_blank">GitHub：flagos-ai</a></li>
+                                <li><a href="#" target="_blank">ModelScope FlagRelease</a></li>
+                                <li><a href="#" target="_blank">Hugging Face FlagRelease</a></li>
+                                <li><a href="https://triton-copilot.baai.ac.cn/" target="_blank">Triton-Copilot</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>基金会信息</h4>
+                    <div class="foundation-info">
+                        <p><strong>成立背景：</strong>打破 AI 芯片生态碎片化</p>
+                        <p><strong>核心成员：</strong>社区秘书长朱其罡</p>
+                        <p><strong>联系方式：</strong>商务合作邮箱 contact@flagos.io</p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>法律与协议</h4>
+                    <div class="legal-links">
+                        <ul>
+                            <li><a href="#">开源协议：Apache 2.0</a></li>
+                            <li><a href="#">代码规范：Contributor Covenant</a></li>
+                            <li><a href="#">隐私政策</a></li>
+                            <li><a href="#">贡献协议</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>社区渠道</h4>
+                    <div class="community-links">
+                        <ul>
+                            <li><a href="#">微信公众号：FlagOpen</a></li>
+                            <li><a href="#">CSDN 专栏</a></li>
+                            <li><a href="#" target="_blank">Slack 国际社群</a></li>
+                            <li><a href="https://github.com/flagos-ai/discussions" target="_blank">GitHub Discussions</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FlagOS 开源社区. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+    
+    <!-- 主题切换脚本 -->
+    <script>
+        // 滚动到指定区域
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // 切换阶段内容
+        function showPhase(phaseId) {
+            // 隐藏所有阶段内容
+            document.querySelectorAll('.phase-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            // 移除所有标签的活跃状态
+            document.querySelectorAll('.phase-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // 显示当前阶段内容
+            document.getElementById(phaseId).classList.add('active');
+            // 设置当前标签为活跃状态
+            event.target.classList.add('active');
+        }
+        
+        // 切换任务阶段内容
+        function showTaskPhase(phaseId) {
+            // 隐藏所有任务阶段内容
+            document.querySelectorAll('.phase-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            // 移除所有标签的活跃状态
+            document.querySelectorAll('.phase-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // 显示当前任务阶段内容
+            document.getElementById(phaseId).classList.add('active');
+            // 设置当前标签为活跃状态
+            event.target.classList.add('active');
+        }
+        
+        // 量化指标分布图表
+        var metricDistributionChart = echarts.init(document.getElementById('metricDistributionChart'));
+        var metricDistributionOption = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                data: ['技术产品', '生态建设', '商业模式', '用户增长', '品牌传播', '运营迭代'],
+                top: 0
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'value',
+                name: '量化指标数量'
+            },
+            yAxis: {
+                type: 'category',
+                data: ['基础建设期(0-6个月)', '生态规模化期(6-18个月)', '规则制定期(18-36个月)']
+            },
+            series: [
+                {
+                    name: '技术产品',
+                    type: 'bar',
+                    stack: 'total',
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: [4, 4, 4]
+                },
+                {
+                    name: '生态建设',
+                    type: 'bar',
+                    stack: 'total',
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: [4, 3, 3]
+                },
+                {
+                    name: '商业模式',
+                    type: 'bar',
+                    stack: 'total',
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: [3, 3, 3]
+                },
+                {
+                    name: '用户增长',
+                    type: 'bar',
+                    stack: 'total',
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: [3, 3, 3]
+                },
+                {
+                    name: '品牌传播',
+                    type: 'bar',
+                    stack: 'total',
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: [3, 3, 3]
+                },
+                {
+                    name: '运营迭代',
+                    type: 'bar',
+                    stack: 'total',
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: [3, 3, 3]
+                }
+            ]
+        };
+        metricDistributionChart.setOption(metricDistributionOption);
+        
+        // 第一阶段其他模块量化指标图表
+        var phase1OtherMetricsChart = echarts.init(document.getElementById('phase1OtherMetricsChart'));
+        var phase1OtherMetricsOption = {
+            tooltip: {
+                trigger: 'item',
+                formatter: '{b}: {c} ({d}%)'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                top: 'center'
+            },
+            series: [
+                {
+                    name: '第一阶段其他模块量化指标',
+                    type: 'pie',
+                    radius: ['40%', '70%'],
+                    avoidLabelOverlap: false,
+                    itemStyle: {
+                        borderRadius: 10,
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    },
+                    label: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,
+                            fontSize: '18',
+                            fontWeight: 'bold'
+                        }
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    data: [
+                        { value: 10, name: '商业模式：核心付费会员≥10家', itemStyle: { color: '#3498db' } },
+                        { value: 500, name: '商业模式：首年会员费≥500万元', itemStyle: { color: '#2ecc71' } },
+                        { value: 50, name: '用户增长：企业注册≥50家', itemStyle: { color: '#f39c12' } },
+                        { value: 1000, name: '用户增长：轻量贡献PR≥1000条', itemStyle: { color: '#e74c3c' } },
+                        { value: 2500, name: '品牌传播：社群总人数≥2500人', itemStyle: { color: '#9b59b6' } },
+                        { value: 99, name: '运营迭代：监控数据准确率≥99%', itemStyle: { color: '#1abc9c' } }
+                    ]
+                }
+            ]
+        };
+        phase1OtherMetricsChart.setOption(phase1OtherMetricsOption);
+        
+        // 分工矩阵关系图
+        var divisionMatrixChart = echarts.init(document.getElementById('divisionMatrixChart'));
+        var divisionMatrixOption = {
+            title: {
+                text: '项目模块与团队分工关系',
+                left: 'center'
+            },
+            tooltip: {},
+            animationDurationUpdate: 1500,
+            animationEasingUpdate: 'quinticInOut',
+            series: [
+                {
+                    type: 'sankey',
+                    left: 50,
+                    right: 50,
+                    data: [
+                        { name: '技术产品' },
+                        { name: '生态建设' },
+                        { name: '商业模式' },
+                        { name: '用户增长' },
+                        { name: '品牌传播' },
+                        { name: '运营迭代' },
+                        { name: '核心技术部' },
+                        { name: '生态发展部' },
+                        { name: '销售部+产品商业化组' },
+                        { name: '用户运营部' },
+                        { name: '品牌公关部' },
+                        { name: '项目管理部' },
+                        { name: '质量测试部' },
+                        { name: '芯片厂商技术团队' },
+                        { name: '运维部' },
+                        { name: '财务部' },
+                        { name: '法务部' },
+                        { name: '高校合作部' }
+                    ],
+                    links: [
+                        { source: '技术产品', target: '核心技术部', value: 8 },
+                        { source: '技术产品', target: '质量测试部', value: 2 },
+                        { source: '技术产品', target: '芯片厂商技术团队', value: 3 },
+                        { source: '技术产品', target: '运维部', value: 1 },
+                        { source: '生态建设', target: '生态发展部', value: 7 },
+                        { source: '生态建设', target: '核心技术部', value: 2 },
+                        { source: '生态建设', target: '品牌公关部', value: 2 },
+                        { source: '生态建设', target: '高校合作部', value: 2 },
+                        { source: '商业模式', target: '销售部+产品商业化组', value: 7 },
+                        { source: '商业模式', target: '核心技术部', value: 1 },
+                        { source: '商业模式', target: '财务部', value: 1 },
+                        { source: '商业模式', target: '法务部', value: 1 },
+                        { source: '用户增长', target: '用户运营部', value: 6 },
+                        { source: '用户增长', target: '品牌公关部', value: 2 },
+                        { source: '用户增长', target: '生态发展部', value: 2 },
+                        { source: '用户增长', target: '核心技术部', value: 2 },
+                        { source: '品牌传播', target: '品牌公关部', value: 7 },
+                        { source: '品牌传播', target: '生态发展部', value: 2 },
+                        { source: '品牌传播', target: '用户运营部', value: 2 },
+                        { source: '品牌传播', target: '核心技术部', value: 2 },
+                        { source: '运营迭代', target: '项目管理部', value: 5 },
+                        { source: '运营迭代', target: '核心技术部', value: 2 },
+                        { source: '运营迭代', target: '生态发展部', value: 1 },
+                        { source: '运营迭代', target: '销售部+产品商业化组', value: 1 },
+                        { source: '运营迭代', target: '用户运营部', value: 1 },
+                        { source: '运营迭代', target: '品牌公关部', value: 1 }
+                    ],
+                    lineStyle: {
+                        color: 'gradient',
+                        curveness: 0.5
+                    }
+                }
+            ]
+        };
+        divisionMatrixChart.setOption(divisionMatrixOption);
+        
+        // 第一阶段甘特图
+        var phase1GanttChart = echarts.init(document.getElementById('phase1GanttChart'));
+        var phase1GanttOption = {
+            tooltip: {
+                trigger: 'axis',
+                formatter: function(params) {
+                    var res = params[0].name + '<br/>';
+                    res += params[0].seriesName + ': 第 ' + params[0].value[1] + ' - ' + params[0].value[2] + ' 周<br/>';
+                    res += '负责人: ' + params[0].data.responsible;
+                    return res;
+                }
+            },
+            grid: {
+                left: '15%',
+                right: '10%',
+                bottom: '15%'
+            },
+            xAxis: {
+                type: 'value',
+                name: '周数',
+                max: 24
+            },
+            yAxis: {
+                type: 'category',
+                data: ['EC-01: 开源基金会成立', 'TP-01: 核心组件开发', 'EC-02: 技术标准发布', 'EC-03: 社区初始搭建', 'TP-03: 框架兼容适配', 'TP-02: 多芯片适配', 'EC-04: 核心伙伴联动', 'TP-04: 性能优化验证']
+            },
+            series: [
+                {
+                    name: '第一阶段任务',
+                    type: 'custom',
+                    renderItem: function(params, api) {
+                        var categoryIndex = api.value(0);
+                        var start = api.coord([api.value(1), categoryIndex]);
+                        var end = api.coord([api.value(2), categoryIndex]);
+                        var height = api.size([0, 1])[1] * 0.6;
+                        
+                        var rectShape = echarts.graphic.clipRectByRect({
+                            x: start[0],
+                            y: start[1] - height / 2,
+                            width: end[0] - start[0],
+                            height: height
+                        }, {
+                            x: params.coordSys.x,
+                            y: params.coordSys.y,
+                            width: params.coordSys.width,
+                            height: params.coordSys.height
+                        });
+                        
+                        return rectShape && {
+                            type: 'rect',
+                            shape: rectShape,
+                            style: api.style()
+                        };
+                    },
+                    itemStyle: {
+                        color: '#3498db',
+                        opacity: 0.8
+                    },
+                    encode: {
+                        x: [1, 2],
+                        y: 0
+                    },
+                    data: [
+                        [0, 1, 6, { responsible: '生态负责人×1、法务专员×2' }],
+                        [1, 1, 8, { responsible: '算子组工程师×8、架构师×2' }],
+                        [2, 3, 18, { responsible: '标准专员×3、技术架构师×2' }],
+                        [3, 4, 10, { responsible: '社区运营×4、技术文档工程师×2' }],
+                        [4, 6, 12, { responsible: '框架工程师×4、自动化测试工程师×3' }],
+                        [5, 4, 22, { responsible: '适配工程师×12、测试工程师×6' }],
+                        [6, 8, 24, { responsible: '合作经理×6、技术支持工程师×4' }],
+                        [7, 20, 24, { responsible: '性能工程师×5、运维工程师×2' }]
+                    ]
+                }
+            ]
+        };
+        phase1GanttChart.setOption(phase1GanttOption);
+        
+        // 工具流程图表
+        var toolFlowChart = echarts.init(document.getElementById('toolFlowChart'));
+        var toolFlowOption = {
+            title: {
+                text: 'FlagPerf测试流程',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{b}: {c}分钟'
+            },
+            series: [
+                {
+                    type: 'graph',
+                    layout: 'force',
+                    data: [
+                        { name: '环境准备', value: 10, itemStyle: { color: '#3498db' } },
+                        { name: '参数配置', value: 5, itemStyle: { color: '#2ecc71' } },
+                        { name: '数据校验', value: 3, itemStyle: { color: '#f39c12' } },
+                        { name: '报告导出', value: 2, itemStyle: { color: '#e74c3c' } }
+                    ],
+                    links: [
+                        { source: '环境准备', target: '参数配置' },
+                        { source: '参数配置', target: '数据校验' },
+                        { source: '数据校验', target: '报告导出' }
+                    ],
+                    lineStyle: {
+                        color: '#3498db',
+                        width: 2,
+                        curveness: 0.3
+                    },
+                    itemStyle: {
+                        borderColor: '#2980b9',
+                        borderWidth: 2
+                    },
+                    label: {
+                        fontSize: 14,
+                        fontWeight: 'bold'
+                    },
+                    force: {
+                        repulsion: 200,
+                        edgeLength: 100
+                    }
+                }
+            ]
+        };
+        toolFlowChart.setOption(toolFlowOption);
+        
+        // 闭环管理流程图
+        var closedLoopChart = echarts.init(document.getElementById('closedLoopChart'));
+        var closedLoopOption = {
+            title: {
+                text: '任务执行闭环流程图',
+                left: 'center'
+            },
+            tooltip: {},
+            series: [
+                {
+                    type: 'graph',
+                    layout: 'circular',
+                    data: [
+                        { name: '任务分配', x: 100, y: 100, itemStyle: { color: '#3498db' } },
+                        { name: '执行跟踪', x: 300, y: 100, itemStyle: { color: '#2ecc71' } },
+                        { name: '数据上报', x: 500, y: 100, itemStyle: { color: '#f39c12' } },
+                        { name: '评估复盘', x: 500, y: 300, itemStyle: { color: '#e74c3c' } },
+                        { name: '异常整改', x: 300, y: 300, itemStyle: { color: '#9b59b6' } },
+                        { name: '任务完成', x: 100, y: 300, itemStyle: { color: '#1abc9c' } }
+                    ],
+                    links: [
+                        { source: '任务分配', target: '执行跟踪' },
+                        { source: '执行跟踪', target: '数据上报' },
+                        { source: '数据上报', target: '评估复盘' },
+                        { source: '评估复盘', target: '异常整改' },
+                        { source: '异常整改', target: '任务完成' },
+                        { source: '任务完成', target: '任务分配', lineStyle: { type: 'dashed' } }
+                    ],
+                    lineStyle: {
+                        color: '#3498db',
+                        width: 2,
+                        curveness: 0.3
+                    },
+                    itemStyle: {
+                        borderColor: '#2980b9',
+                        borderWidth: 2
+                    },
+                    label: {
+                        fontSize: 14,
+                        fontWeight: 'bold'
+                    },
+                    force: {
+                        repulsion: 200,
+                        edgeLength: 100
+                    }
+                }
+            ]
+        };
+        closedLoopChart.setOption(closedLoopOption);
+        
+        // 响应式调整
+        window.addEventListener('resize', function() {
+            metricDistributionChart.resize();
+            phase1OtherMetricsChart.resize();
+            divisionMatrixChart.resize();
+            phase1GanttChart.resize();
+            toolFlowChart.resize();
+            closedLoopChart.resize();
+        });
+        
+        // 暗黑模式切换（添加存在性检查，确保与其他页面一致）
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        // 检查本地存储中的主题偏好（添加存在性检查）
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.body.classList.add('dark-mode');
+            if (themeToggle) {
+                themeToggle.checked = true;
+            }
+        }
+        
+        // 切换主题（添加存在性检查）
+        if (themeToggle) {
+            themeToggle.addEventListener('change', () => {
+                document.body.classList.toggle('dark-mode');
+                if (document.body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        }
+        
+        // 搜索功能
+        const searchInput = document.querySelector('.search-input');
+        const searchBtn = document.querySelector('.search-btn');
+        
+        searchBtn.addEventListener('click', () => {
+            performSearch();
+        });
+        
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (query) {
+                console.log('搜索:', query);
+                // 这里可以添加实际的搜索逻辑
+                alert(`搜索 "${query}"，搜索功能开发中...`);
+            }
+        }
+        
+        // 侧边栏切换功能
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        // 移除自动添加的类，让CSS hover效果控制侧边栏
+        document.body.classList.remove('sidebar-expanded');
+        document.body.classList.remove('sidebar-collapsed');
+        
+        // 切换侧边栏
+        sidebarToggle.addEventListener('click', () => {
+            document.body.classList.toggle('sidebar-expanded');
+            document.body.classList.toggle('sidebar-collapsed');
+            
+            // 保存侧边栏状态到本地存储
+            if (document.body.classList.contains('sidebar-expanded')) {
+                localStorage.setItem('sidebar', 'expanded');
+            } else {
+                localStorage.setItem('sidebar', 'collapsed');
+            }
+        });
+        
+        // 根据当前页面设置侧边栏激活状态
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav li a');
+        
+        sidebarLinks.forEach(link => {
+            const linkPage = link.getAttribute('href');
+            if (linkPage === currentPage) {
+                link.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,7 +1,65 @@
 # flagOS-MarketingWebsite
-flagOS网站策划&思考，见flagOS.md
 
+**说明**
 
+| md文档                   | 说明                                                         | 备注 |
+| ------------------------ | ------------------------------------------------------------ | ---- |
+| flagOS.md                | flagOS网站策划&思考                                          |      |
+| FlagOS落地执行手册.md    | FlagOS 项目量化指标体系、指标落地执行手册、团队分工矩阵的准确性和有效性 |      |
+| website-documentation.md | 第一版本的FlagOS 营销网站说明文档                            |      |
+| website-structure.md     | 第一版本的FlagOS 网站页面拆分方案                            |      |
+| 话稿.md                  | 对FlagOS产品营销书.pptx的分享讲演                            |      |
+
+**声明**
+
+基于AI生成并修改：
+
+- 千问：
+  - FlagOS产品营销书.pptx
+  - FlagOS发展规划书.pptx
+- Kimi：
+  - FlagOS指标落地书.pptx
+- 豆包：
+  - FlagOS 核心组件交互流程图.png
+
+**目录结构**
+
+```
+flagOS-MarketingWebsite/
+├── index.html                     # 首页
+├── about.html                     # 关于 FlagOS
+├── components.html                # 核心组件
+├── ecosystem.html                 # 扩展生态
+├── docs.html                      # 文档中心
+├── models.html                    # 模型仓库
+├── community.html                 # 社区中心
+├── partners.html                  # 合作伙伴
+├── news.html                      # 新闻动态
+├── contact.html                   # 联系我们
+├── template.html                  # 模板文件
+├── flagos-detailed-execution.html # FlagOS落地执行手册
+├── css/
+│   └── styles.css                 # 样式文件
+├── js/
+│   └── script.js                  # JavaScript 文件
+├── add-sidebar.ps1                # 侧边栏添加脚本
+├── add-sidebar-simple.ps1         # 简易侧边栏添加脚本
+├── add-sidebar-all.ps1            # 全页面侧边栏添加脚本
+├── validate_html.py               # HTML 验证脚本
+├── validate_all_html.py           # 全页面 HTML 验证脚本
+├── README.md                      # 项目说明文档
+├── website-documentation.md       # 网站说明文档
+├── website-structure.md           # 网站架构规划
+├── flagOS.md                      # 核心内容源
+├── FlagOS 核心组件交互流程图.png    # 核心组件交互流程图
+├── FlagOS产品营销书.pptx           # FlagOS产品营销书
+├── FlagOS发展规划书.pptx           # FlagOS发展规划书
+├── FlagOS落地执行手册.md           # FlagOS落地执行手册
+├── FlagOS指标落地书.pptx           # FlagOS指标落地书
+├── 众智FlagOS  CN-1024.pdf        # FlagOS 宣传册
+├── 话稿.md                        # 演讲脚本
+└── LICENSE                        # 许可证文件
+```
 
 # website-structure
 
@@ -541,38 +599,7 @@ FlagOS 营销网站说明文档
 - **JavaScript (ES6+)**: 基础交互功能
 - **响应式设计**: 适配各种屏幕尺寸
 
-### 5.2 目录结构
 
-```
-flagOS-MarketingWebsite/
-├── index.html                     # 首页
-├── about.html                     # 关于 FlagOS
-├── components.html                # 核心组件
-├── ecosystem.html                 # 扩展生态
-├── docs.html                      # 文档中心
-├── models.html                    # 模型仓库
-├── community.html                 # 社区中心
-├── partners.html                  # 合作伙伴
-├── news.html                      # 新闻动态
-├── contact.html                   # 联系我们
-├── template.html                  # 模板文件
-├── css/
-│   └── styles.css                 # 样式文件
-├── js/
-│   └── script.js                  # JavaScript 文件
-├── add-sidebar.ps1                # 侧边栏添加脚本
-├── add-sidebar-simple.ps1         # 简易侧边栏添加脚本
-├── add-sidebar-all.ps1            # 全页面侧边栏添加脚本
-├── validate_html.py               # HTML 验证脚本
-├── validate_all_html.py           # 全页面 HTML 验证脚本
-├── README.md                      # 项目说明文档
-├── website-documentation.md       # 网站说明文档
-├── website-structure.md           # 网站架构规划
-├── flagOS.md                      # 核心内容源
-├── FlagOS 开源商业产品营销计划书.pptx # 商业计划书
-├── 众智FlagOS  CN-1024.pdf        # FlagOS 宣传册
-└── 话稿.md                        # 演讲脚本
-```
 
 ## 6. 维护指南
 
@@ -742,3 +769,17 @@ Q：为什么单个页面总是出现乱码问题？？？
 首页的FlagOS vs CUDA两两对称
 
 文档中心的文档分类颜色改为浅色（链接还有背景色）
+
+
+
+## 12\9
+
+1、新增B站轮播，但不知道是缓存还是为啥后面三个的显示始终有问题
+
+2、PPTX下载
+
+3、增加量化落实体系模块（HTML）
+
+4、首页的技术架构下增加FlagOS 核心组件交互流程图.png
+
+5、更新README.md中目录结构

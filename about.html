@@ -192,6 +192,7 @@
                     <li><a href="components.html">核心组件</a></li>
                     <li><a href="ecosystem.html">扩展生态</a></li>
                     <li><a href="docs.html">文档中心</a></li>
+                    <li><a href="flagos-detailed-execution.html">落地执行</a></li>
                     <li><a href="models.html">模型仓库</a></li>
                     <li><a href="community.html">社区中心</a></li>
                     <li><a href="partners.html">合作伙伴</a></li>
@@ -241,6 +242,7 @@
         <ul class="sidebar-nav">
             <li><a href="#about-intro" class="active"><i class="fas fa-info-circle"></i> 关于 FlagOS</a></li>
             <li><a href="#mission-vision"><i class="fas fa-eye"></i> 使命与愿景</a></li>
+            <li><a href="./video-download" class="active"><i class="fas fa-video"></i> 视频介绍</a></li>
             <li><a href="#linux-foundation-model"><i class="fas fa-building"></i> FlagOS 基金会</a></li>
             <li><a href="#governance"><i class="fas fa-users-cog"></i> 治理架构</a></li>
             <li><a href="#decision-process"><i class="fas fa-route"></i> 决策流程</a></li>
@@ -340,11 +342,15 @@
                     <div class="download-links">
                         <a href="https://github.com/Limited-time/flagOS-MarketingWebsite/blob/7df7d9a0d0fbfd88e28b4b9d9cc056e0f2031286/FlagOS%20%E5%BC%80%E6%BA%90%E5%95%86%E4%B8%9A%E4%BA%A7%E5%93%81%E8%90%A5%E9%94%80%E8%AE%A1%E5%88%92%E4%B9%A6.pptx" class="download-link" download>
                             <i class="fas fa-file-powerpoint"></i>
-                            <span>FlagOS 开源商业产品营销计划书.pptx</span>
+                            <span>FlagOS 产品营销书.pptx</span>
                         </a>
                         <a href="https://github.com/Limited-time/flagOS-MarketingWebsite/blob/7df7d9a0d0fbfd88e28b4b9d9cc056e0f2031286/FlagOS%E5%8F%91%E5%B1%95%E8%A7%84%E5%88%92%E4%B9%A6.pptx" class="download-link" download>
                             <i class="fas fa-file-powerpoint"></i>
-                            <span>FlagOS发展规划书.pptx</span>
+                            <span>FlagOS 发展规划书.pptx</span>
+                        </a>
+                        <a href="https://github.com/Limited-time/flagOS-MarketingWebsite/blob/7df7d9a0d0fbfd88e28b4b9d9cc056e0f2031286/FlagOS%20%E5%BC%80%E6%BA%90%E5%95%86%E4%B8%9A%E4%BA%A7%E5%93%81%E8%90%A5%E9%94%80%E8%AE%A1%E5%88%92%E4%B9%A6.pptx" class="download-link" download>
+                            <i class="fas fa-file-powerpoint"></i>
+                            <span>FlagOS 指标落地书.pptx</span>
                         </a>
                     </div>
                 </div>
@@ -688,28 +694,28 @@
             
             // 更新轮播位置
             function updateCarouselPosition() {
-                requestAnimationFrame(() => {
-                    const itemWidth = carouselItems.length > 0 ? carouselItems[0].clientWidth : 0;
-                    if (carouselTrack && itemWidth > 0) {
-                        carouselTrack.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
-                    }
-                });
+                const itemWidth = carouselItems.length > 0 ? carouselItems[0].clientWidth : 0;
+                if (carouselTrack && itemWidth > 0) {
+                    carouselTrack.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+                }
             }
             
-            // 初始化轮播
-            requestAnimationFrame(() => {
+            // 初始化轮播 - 使用setTimeout确保DOM完全渲染
+            setTimeout(() => {
                 updateCarouselPosition();
                 updateActiveState();
+            }, 100);
+            
+            // 窗口大小变化时重新计算轮播位置
+            window.addEventListener('resize', () => {
+                updateCarouselPosition();
             });
             
             // 点击指示器切换视频
             indicators.forEach(indicator => {
                 indicator.addEventListener('click', () => {
                     currentIndex = parseInt(indicator.getAttribute('data-index'));
-                    const newItemWidth = carouselItems.length > 0 ? carouselItems[0].clientWidth : 0;
-                    if (carouselTrack && newItemWidth > 0) {
-                        carouselTrack.style.transform = `translateX(${-currentIndex * newItemWidth}px)`;
-                    }
+                    updateCarouselPosition();
                     updateActiveState();
                 });
             });
