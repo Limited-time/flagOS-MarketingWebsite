@@ -311,6 +311,255 @@ body {
     background: #2563eb;
 }
 
+/* 视频和下载部分样式 */
+.video-download {
+    background-color: #ffffff;
+    padding: 80px 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode .video-download {
+    background-color: #1e293b;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 轮播容器样式 */
+.carousel-container {
+    position: relative;
+    background-color: #f8fafc;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 48px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+body.dark-mode .carousel-container {
+    background-color: #0f172a;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-track-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.carousel-item.active {
+    opacity: 1;
+}
+
+.bilibili-player {
+    width: 100%;
+    max-width: 900px;
+    height: 506px;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.bilibili-player:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
+}
+
+/* 轮播控制按钮 */
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #3b82f6;
+    border: none;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .carousel-control {
+    background-color: rgba(15, 23, 42, 0.9);
+    color: #3b82f6;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-control.prev {
+    left: 30px;
+}
+
+.carousel-control.next {
+    right: 30px;
+}
+
+.carousel-control:hover {
+    background-color: #3b82f6;
+    color: #ffffff;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 24px rgba(59, 130, 246, 0.4);
+}
+
+.carousel-control:focus {
+    outline: none;
+}
+
+/* 轮播指示器 */
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(59, 130, 246, 0.3);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .indicator {
+    background-color: rgba(59, 130, 246, 0.5);
+}
+
+.indicator.active {
+    background-color: #3b82f6;
+    width: 36px;
+    border-radius: 6px;
+}
+
+body.dark-mode .indicator.active {
+    background-color: #3b82f6;
+}
+
+.download-section {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.download-section h4 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #2c3e50;
+    text-align: center;
+}
+
+body.dark-mode .download-section h4 {
+    color: #f8fafc;
+}
+
+.download-links {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.download-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background-color: #f8fafc;
+    border-radius: 12px;
+    border: 2px solid rgba(59, 130, 246, 0.2);
+    text-decoration: none;
+    color: #2c3e50;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+body.dark-mode .download-link {
+    background-color: #0f172a;
+    color: #cbd5e1;
+    border-color: rgba(59, 130, 246, 0.3);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+.download-link i {
+    font-size: 28px;
+    color: #3b82f6;
+    transition: all 0.3s ease;
+}
+
+.download-link span {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.download-link:hover {
+    background-color: #3b82f6;
+    color: #ffffff;
+    border-color: #3b82f6;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+}
+
+body.dark-mode .download-link:hover {
+    background-color: #3b82f6;
+    color: #ffffff;
+}
+
+.download-link:hover i {
+    transform: scale(1.2) rotate(10deg);
+    color: #ffffff;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .video-download {
+        padding: 60px 0;
+    }
+    
+    .bilibili-player {
+        height: 300px;
+    }
+    
+    .video-container {
+        padding: 12px;
+        margin-bottom: 32px;
+    }
+    
+    .download-section h4 {
+        font-size: 20px;
+    }
+    
+    .download-link {
+        padding: 16px 20px;
+        font-size: 14px;
+    }
+    
+    .download-link i {
+        font-size: 24px;
+    }
+}
+
 /* 平滑滚动 */
 html {
     scroll-behavior: smooth;

@@ -296,6 +296,61 @@
             </div>
         </section>
 
+        <section class="video-download">
+            <div class="container">
+                <h3>视频介绍</h3>
+                <div class="carousel-container">
+                    <div class="carousel-track-container">
+                        <div class="carousel-track" id="videoCarousel">
+                            <!-- 视频项 1 -->
+                            <div class="carousel-item active">
+                                <iframe id="video-1" src="https://player.bilibili.com/player.html?bvid=BV1BUSaBCEew&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili-player"> </iframe>
+                            </div>
+                            <!-- 视频项 2 -->
+                            <div class="carousel-item">
+                                <iframe id="video-2" src="//player.bilibili.com/player.html?isOutside=true&aid=115653168141259&bvid=BV1BUSaBCEew&cid=34462437368&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili-player"> </iframe>
+                            </div>
+                            <!-- 视频项 3 -->
+                            <div class="carousel-item">
+                                <iframe id="video-3" src="//player.bilibili.com/player.html?isOutside=true&aid=115376948055559&bvid=BV1UY4qzzEYj&cid=33095289135&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili-player"> </iframe>
+                            </div>
+                            <!-- 视频项 4 -->
+                            <div class="carousel-item">
+                                <iframe id="video-4" src="//player.bilibili.com/player.html?isOutside=true&aid=115377669409262&bvid=BV1Lo4vzLEbf&cid=33095290778&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili-player"> </iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 轮播控制按钮 -->
+                    <button class="carousel-control prev" id="carouselPrev">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-control next" id="carouselNext">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <!-- 轮播指示器 -->
+                    <div class="carousel-indicators" id="carouselIndicators">
+                        <button class="indicator active" data-index="0"></button>
+                        <button class="indicator" data-index="1"></button>
+                        <button class="indicator" data-index="2"></button>
+                        <button class="indicator" data-index="3"></button>
+                    </div>
+                </div>
+                <div class="download-section">
+                    <h4>相关资料下载</h4>
+                    <div class="download-links">
+                        <a href="https://github.com/Limited-time/flagOS-MarketingWebsite/blob/7df7d9a0d0fbfd88e28b4b9d9cc056e0f2031286/FlagOS%20%E5%BC%80%E6%BA%90%E5%95%86%E4%B8%9A%E4%BA%A7%E5%93%81%E8%90%A5%E9%94%80%E8%AE%A1%E5%88%92%E4%B9%A6.pptx" class="download-link" download>
+                            <i class="fas fa-file-powerpoint"></i>
+                            <span>FlagOS 开源商业产品营销计划书.pptx</span>
+                        </a>
+                        <a href="https://github.com/Limited-time/flagOS-MarketingWebsite/blob/7df7d9a0d0fbfd88e28b4b9d9cc056e0f2031286/FlagOS%E5%8F%91%E5%B1%95%E8%A7%84%E5%88%92%E4%B9%A6.pptx" class="download-link" download>
+                            <i class="fas fa-file-powerpoint"></i>
+                            <span>FlagOS发展规划书.pptx</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="linux-foundation-model" id="linux-foundation-model">
             <div class="container">
                 <h3>FlagOS 基金会</h3>
@@ -474,79 +529,204 @@
     
     <!-- 主题切换脚本 -->
     <script>
-        // 暗黑模式切换
-        const themeToggle = document.getElementById('theme-toggle');
-        
-        // 检查本地存储中的主题偏好
-        if (localStorage.getItem('theme') === 'dark' || 
-            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.body.classList.add('dark-mode');
-            themeToggle.checked = true;
-        }
-        
-        // 切换主题
-        themeToggle.addEventListener('change', () => {
-            document.body.classList.toggle('dark-mode');
-            if (document.body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark');
-            } else {
-                localStorage.setItem('theme', 'light');
-            }
-        });
-        
-        // 搜索功能
-        const searchInput = document.querySelector('.search-input');
-        const searchBtn = document.querySelector('.search-btn');
-        
-        searchBtn.addEventListener('click', () => {
-            performSearch();
-        });
-        
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                performSearch();
-            }
-        });
-        
-        function performSearch() {
-            const query = searchInput.value.trim();
-            if (query) {
-                console.log('搜索:', query);
-                // 这里可以添加实际的搜索逻辑
-                alert(`搜索 "${query}"，搜索功能开发中...`);
-            }
-        }
-        
-        // 侧边栏切换功能
-        const sidebarToggle = document.getElementById('sidebar-toggle');
-        const sidebar = document.getElementById('sidebar');
-        
-        // 移除自动添加的类，让CSS hover效果控制侧边栏
-        document.body.classList.remove('sidebar-expanded');
-        document.body.classList.remove('sidebar-collapsed');
-        
-        // 切换侧边栏
-        sidebarToggle.addEventListener('click', () => {
-            document.body.classList.toggle('sidebar-expanded');
-            document.body.classList.toggle('sidebar-collapsed');
+        document.addEventListener('DOMContentLoaded', () => {
+            // 暗黑模式切换
+            const themeToggle = document.getElementById('theme-toggle');
             
-            // 保存侧边栏状态到本地存储
-            if (document.body.classList.contains('sidebar-expanded')) {
-                localStorage.setItem('sidebar', 'expanded');
-            } else {
-                localStorage.setItem('sidebar', 'collapsed');
+            // 检查本地存储中的主题偏好（添加存在性检查）
+            if (localStorage.getItem('theme') === 'dark' || 
+                (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.body.classList.add('dark-mode');
+                if (themeToggle) {
+                    themeToggle.checked = true;
+                }
             }
-        });
-        
-        // 根据当前页面设置侧边栏激活状态
-        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-        const sidebarLinks = document.querySelectorAll('.sidebar-nav li a');
-        
-        sidebarLinks.forEach(link => {
-            const linkPage = link.getAttribute('href');
-            if (linkPage === currentPage) {
-                link.classList.add('active');
+            
+            // 切换主题（添加存在性检查）
+            if (themeToggle) {
+                themeToggle.addEventListener('change', () => {
+                    document.body.classList.toggle('dark-mode');
+                    if (document.body.classList.contains('dark-mode')) {
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        localStorage.setItem('theme', 'light');
+                    }
+                });
             }
+            
+            // 搜索功能
+            const searchInput = document.querySelector('.search-input');
+            const searchBtn = document.querySelector('.search-btn');
+            
+            // 定义搜索函数
+            function performSearch() {
+                if (!searchInput) return;
+                const query = searchInput.value.trim();
+                if (query) {
+                    console.log('搜索:', query);
+                    // 这里可以添加实际的搜索逻辑
+                    alert(`搜索 "${query}"，搜索功能开发中...`);
+                }
+            }
+            
+            // 添加搜索事件监听
+            if (searchBtn) {
+                searchBtn.addEventListener('click', performSearch);
+            }
+            
+            if (searchInput) {
+                searchInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        performSearch();
+                    }
+                });
+            }
+            
+            // 侧边栏切换功能
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const sidebar = document.getElementById('sidebar');
+            
+            // 移除自动添加的类，让CSS hover效果控制侧边栏
+            document.body.classList.remove('sidebar-expanded');
+            document.body.classList.remove('sidebar-collapsed');
+            
+            // 切换侧边栏（添加存在性检查）
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', () => {
+                    document.body.classList.toggle('sidebar-expanded');
+                    document.body.classList.toggle('sidebar-collapsed');
+                    
+                    // 保存侧边栏状态到本地存储
+                    if (document.body.classList.contains('sidebar-expanded')) {
+                        localStorage.setItem('sidebar', 'expanded');
+                    } else {
+                        localStorage.setItem('sidebar', 'collapsed');
+                    }
+                });
+            }
+            
+            // 根据当前页面设置侧边栏激活状态
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const sidebarLinks = document.querySelectorAll('.sidebar-nav li a');
+            
+            if (sidebarLinks.length > 0) {
+                sidebarLinks.forEach(link => {
+                    const linkPage = link.getAttribute('href');
+                    if (linkPage === currentPage) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            // 轮播功能
+            const carouselTrack = document.getElementById('videoCarousel');
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            const prevButton = document.getElementById('carouselPrev');
+            const nextButton = document.getElementById('carouselNext');
+            const indicators = document.querySelectorAll('.indicator');
+            const videoIframes = document.querySelectorAll('.bilibili-player');
+            
+            let currentIndex = 0;
+            const totalItems = carouselItems.length;
+            
+            // 发送消息给B站播放器
+            function sendMessageToPlayer(iframe, action) {
+                if (!iframe) return;
+                const playerOrigin = 'https://player.bilibili.com';
+                iframe.contentWindow.postMessage(JSON.stringify({
+                    'biliplayer': action
+                }), playerOrigin);
+            }
+            
+            // 暂停所有视频
+            function pauseAllVideos() {
+                videoIframes.forEach(iframe => {
+                    sendMessageToPlayer(iframe, 'pause');
+                });
+            }
+            
+            // 更新激活状态
+            function updateActiveState() {
+                // 暂停所有视频
+                pauseAllVideos();
+                
+                // 更新轮播项
+                carouselItems.forEach((item, index) => {
+                    item.classList.toggle('active', index === currentIndex);
+                });
+                
+                // 更新指示器
+                indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === currentIndex);
+                });
+                
+                // 播放当前视频（可选，根据需求决定是否自动播放）
+                // playVideo(currentIndex);
+            }
+            
+            // 播放指定索引的视频
+            function playVideo(index) {
+                const iframe = videoIframes[index];
+                if (iframe) {
+                    sendMessageToPlayer(iframe, 'play');
+                }
+            }
+            
+            // 切换到下一个视频
+            function nextVideo() {
+                currentIndex = (currentIndex + 1) % totalItems;
+                updateCarouselPosition();
+                updateActiveState();
+            }
+            
+            // 切换到上一个视频
+            function prevVideo() {
+                currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+                updateCarouselPosition();
+                updateActiveState();
+            }
+            
+            // 更新轮播位置
+            function updateCarouselPosition() {
+                requestAnimationFrame(() => {
+                    const itemWidth = carouselItems.length > 0 ? carouselItems[0].clientWidth : 0;
+                    if (carouselTrack && itemWidth > 0) {
+                        carouselTrack.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+                    }
+                });
+            }
+            
+            // 初始化轮播
+            requestAnimationFrame(() => {
+                updateCarouselPosition();
+                updateActiveState();
+            });
+            
+            // 点击指示器切换视频
+            indicators.forEach(indicator => {
+                indicator.addEventListener('click', () => {
+                    currentIndex = parseInt(indicator.getAttribute('data-index'));
+                    const newItemWidth = carouselItems.length > 0 ? carouselItems[0].clientWidth : 0;
+                    if (carouselTrack && newItemWidth > 0) {
+                        carouselTrack.style.transform = `translateX(${-currentIndex * newItemWidth}px)`;
+                    }
+                    updateActiveState();
+                });
+            });
+            
+            // 为控制按钮添加事件监听
+            if (prevButton && nextButton) {
+                prevButton.addEventListener('click', prevVideo);
+                nextButton.addEventListener('click', nextVideo);
+            }
+            
+            // 窗口大小变化时更新轮播位置
+            window.addEventListener('resize', () => {
+                const newItemWidth = carouselItems.length > 0 ? carouselItems[0].clientWidth : 0;
+                if (carouselTrack && newItemWidth > 0) {
+                    carouselTrack.style.transform = `translateX(${-currentIndex * newItemWidth}px)`;
+                }
+            });
         });
     </script>
 </body>
