@@ -21,132 +21,7 @@
     <!-- 引入ECharts -->
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <style>
-        /* 全局搜索样式 - 与其他页面保持一致 */
-        .search-container {
-            position: relative;
-            margin: 0 16px;
-        }
-        
-        .search-input {
-            width: 200px;
-            padding: 10px 40px 10px 16px;
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 25px;
-            background-color: rgba(255, 255, 255, 0.9);
-            font-size: 14px;
-            transition: all 0.3s ease;
-            outline: none;
-        }
-        
-        .search-input:focus {
-            width: 250px;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-        
-        .search-btn {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: #64748b;
-            cursor: pointer;
-            font-size: 14px;
-            transition: color 0.3s ease;
-        }
-        
-        .search-btn:hover {
-            color: #3b82f6;
-        }
-        
-        /* 暗黑模式切换样式 - 与其他页面保持一致 */
-        .theme-switcher {
-            position: relative;
-            display: inline-block;
-            width: 40px;
-            height: 20px;
-            margin: 0 16px;
-        }
-        
-        .theme-switcher input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        
-        .theme-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #cbd5e1;
-            transition: .4s;
-            border-radius: 34px;
-        }
-        
-        .theme-slider:before {
-            position: absolute;
-            content: "";
-            height: 16px;
-            width: 16px;
-            left: 2px;
-            bottom: 2px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-        
-        input:checked + .theme-slider {
-            background-color: #3b82f6;
-        }
-        
-        input:checked + .theme-slider:before {
-            transform: translateX(20px);
-        }
-        
-        /* 暗黑模式样式 - 与其他页面保持一致 */
-        body.dark-mode {
-            background-color: #0f172a;
-            color: #f1f5f9;
-        }
-        
-        body.dark-mode .navbar {
-            background-color: rgba(15, 23, 42, 0.98);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        body.dark-mode .navbar .logo h1 {
-            color: #3b82f6;
-        }
-        
-        body.dark-mode .nav-menu li a {
-            color: #94a3b8;
-        }
-        
-        body.dark-mode .nav-menu li a:hover {
-            color: #3b82f6;
-            background-color: rgba(59, 130, 246, 0.1);
-        }
-        
-        body.dark-mode section {
-            background-color: #1e293b;
-        }
-        
-        body.dark-mode section:nth-child(even) {
-            background-color: #0f172a;
-        }
-        
-        body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 {
-            color: #f8fafc;
-        }
-        
-        body.dark-mode p, body.dark-mode li {
-            color: #cbd5e1;
-        }
+        /* 落地执行页面自定义样式 */
         
         /* 落地执行页面自定义样式 */
         .chart-container {
@@ -1736,17 +1611,17 @@
         // 搜索功能
         const searchInput = document.querySelector('.search-input');
         const searchBtn = document.querySelector('.search-btn');
-        
+
         searchBtn.addEventListener('click', () => {
             performSearch();
         });
-        
+
         searchInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 performSearch();
             }
         });
-        
+
         function performSearch() {
             const query = searchInput.value.trim();
             if (query) {
@@ -1755,6 +1630,10 @@
                 alert(`搜索 "${query}"，搜索功能开发中...`);
             }
         }
+        
+
+        
+
         
         // 侧边栏切换功能
         const sidebarToggle = document.getElementById('sidebar-toggle');
@@ -1786,6 +1665,50 @@
             if (linkPage === currentPage) {
                 link.classList.add('active');
             }
+        });
+        
+        // 修复：添加暗黑模式下表格、卡片等元素的样式
+        document.addEventListener('DOMContentLoaded', () => {
+            const style = document.createElement('style');
+            style.textContent = `
+                body.dark-mode .table-container,
+                body.dark-mode table,
+                body.dark-mode .metric-card,
+                body.dark-mode .tool-step,
+                body.dark-mode .phase-tab {
+                    background-color: #1e293b;
+                    color: #cbd5e1;
+                }
+                
+                body.dark-mode th {
+                    background-color: #3b82f6;
+                    color: white;
+                }
+                
+                body.dark-mode tr:hover {
+                    background-color: #334155;
+                }
+                
+                body.dark-mode .phase-tab.active {
+                    background-color: #3b82f6;
+                    color: white;
+                }
+                
+                body.dark-mode .phase-tab:not(.active):hover {
+                    background-color: #334155;
+                }
+                
+                body.dark-mode .metric-title,
+                body.dark-mode .step-title {
+                    color: #f8fafc;
+                }
+                
+                body.dark-mode .metric-description,
+                body.dark-mode .step-content {
+                    color: #cbd5e1;
+                }
+            `;
+            document.head.appendChild(style);
         });
     </script>
 </body>

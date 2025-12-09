@@ -1,18 +1,35 @@
-// 移动端菜单切换
-const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-const navMenu = document.querySelector('.nav-menu');
-
-mobileMenuBtn.addEventListener('click', () => {
-    mobileMenuBtn.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
-
-// 点击导航链接后关闭移动端菜单
-navMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-        mobileMenuBtn.classList.remove('active');
-        navMenu.classList.remove('active');
-    });
+// 导航菜单切换功能 - 适用于所有页面
+// 使用DOMContentLoaded确保DOM加载完成后再执行
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    // 确保元素存在
+    if (mobileMenuBtn && navMenu) {
+        // 点击菜单按钮切换菜单
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // 防止事件冒泡
+            mobileMenuBtn.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+        
+        // 点击导航链接后关闭菜单
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // 点击页面其他地方关闭菜单
+        document.addEventListener('click', (e) => {
+            // 检查点击目标是否在导航菜单或按钮内
+            if (!mobileMenuBtn.contains(e.target) && !navMenu.contains(e.target)) {
+                mobileMenuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    }
 });
 
 // 导航栏滚动效果
@@ -46,6 +63,43 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             });
         }
     });
+});
+
+// 侧边栏切换功能 - 适用于所有页面
+document.addEventListener('DOMContentLoaded', () => {
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebar = document.getElementById('sidebar');
+    
+    // 确保元素存在
+    if (sidebarToggle && sidebar) {
+        // 检查本地存储中的侧边栏状态
+        const savedSidebarState = localStorage.getItem('sidebar');
+        if (savedSidebarState === 'expanded') {
+            document.body.classList.add('sidebar-expanded');
+        } else if (savedSidebarState === 'collapsed') {
+            document.body.classList.add('sidebar-collapsed');
+        }
+        
+        // 切换侧边栏
+        sidebarToggle.addEventListener('click', () => {
+            // 切换状态类
+            document.body.classList.toggle('sidebar-expanded');
+            document.body.classList.toggle('sidebar-collapsed');
+            
+            // 保存侧边栏状态到本地存储
+            if (document.body.classList.contains('sidebar-expanded')) {
+                localStorage.setItem('sidebar', 'expanded');
+                // 添加一个临时类，确保点击后有明显效果
+                document.body.classList.add('sidebar-clicked');
+                // 3秒后移除临时类，恢复hover效果
+                setTimeout(() => {
+                    document.body.classList.remove('sidebar-clicked');
+                }, 3000);
+            } else {
+                localStorage.setItem('sidebar', 'collapsed');
+            }
+        });
+    }
 });
 
 // 滚动到顶部按钮

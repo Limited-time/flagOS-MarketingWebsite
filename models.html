@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -192,6 +192,7 @@
                     <li><a href="components.html">核心组件</a></li>
                     <li><a href="ecosystem.html">开源生态</a></li>
                     <li><a href="docs.html">文档中心</a></li>
+                    <li><a href="flagos-detailed-execution.html">落地执行</a></li>
                     <li><a href="models.html" class="active">模型仓库</a></li>
                     <li><a href="community.html">社区中心</a></li>
                     <li><a href="partners.html">合作伙伴</a></li>
@@ -647,77 +648,92 @@
     
     <!-- 主题切换脚本 -->
     <script>
-        // 暗黑模式切换
-        const themeToggle = document.getElementById('theme-toggle');
-        
-        // 检查本地存储中的主题偏好        if (localStorage.getItem('theme') === 'dark' || 
-            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.body.classList.add('dark-mode');
-            themeToggle.checked = true;
-        }
-        
-        // 切换主题
-        themeToggle.addEventListener('change', () => {
-            document.body.classList.toggle('dark-mode');
-            if (document.body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark');
-            } else {
-                localStorage.setItem('theme', 'light');
-            }
-        });
-        
-        // 搜索功能
-        const searchInput = document.querySelector('.search-input');
-        const searchBtn = document.querySelector('.search-btn');
-        
-        searchBtn.addEventListener('click', () => {
-            performSearch();
-        });
-        
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                performSearch();
-            }
-        });
-        
-        function performSearch() {
-            const query = searchInput.value.trim();
-            if (query) {
-                console.log('搜索:', query);
-                // 这里可以添加实际的搜索逻辑
-                alert(`搜索 "${query}"，搜索功能开发中...`);
-            }
-        }
-            // 侧边栏切换功能
-        const sidebarToggle = document.getElementById('sidebar-toggle');
-        const sidebar = document.getElementById('sidebar');
-        
-        // 移除自动添加的类，让CSS hover效果控制侧边栏
-        document.body.classList.remove('sidebar-expanded');
-        document.body.classList.remove('sidebar-collapsed');
-        
-        // 切换侧边栏
-        sidebarToggle.addEventListener('click', () => {
-            document.body.classList.toggle('sidebar-expanded');
-            document.body.classList.toggle('sidebar-collapsed');
+        document.addEventListener('DOMContentLoaded', () => {
+            // 暗黑模式切换
+            const themeToggle = document.getElementById('theme-toggle');
             
-            // 保存侧边栏状态到本地存储
-            if (document.body.classList.contains('sidebar-expanded')) {
-                localStorage.setItem('sidebar', 'expanded');
-            } else {
-                localStorage.setItem('sidebar', 'collapsed');
+            // 检查本地存储中的主题偏好
+            if (localStorage.getItem('theme') === 'dark' || 
+                (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.body.classList.add('dark-mode');
+                if (themeToggle) {
+                    themeToggle.checked = true;
+                }
             }
-        });
-        
-        // 根据当前页面设置侧边栏激活状态
-        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-        const sidebarLinks = document.querySelectorAll('.sidebar-nav li a');
-        
-        sidebarLinks.forEach(link => {
-            const linkPage = link.getAttribute('href');
-            if (linkPage === currentPage) {
-                link.classList.add('active');
+            
+            // 切换主题
+            if (themeToggle) {
+                themeToggle.addEventListener('change', () => {
+                    document.body.classList.toggle('dark-mode');
+                    if (document.body.classList.contains('dark-mode')) {
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        localStorage.setItem('theme', 'light');
+                    }
+                });
             }
+            
+            // 搜索功能
+            const searchInput = document.querySelector('.search-input');
+            const searchBtn = document.querySelector('.search-btn');
+            
+            function performSearch() {
+                if (!searchInput) return;
+                const query = searchInput.value.trim();
+                if (query) {
+                    console.log('搜索:', query);
+                    // 这里可以添加实际的搜索逻辑
+                    alert(`搜索 "${query}"，搜索功能开发中...`);
+                }
+            }
+            
+            if (searchBtn) {
+                searchBtn.addEventListener('click', () => {
+                    performSearch();
+                });
+            }
+            
+            if (searchInput) {
+                searchInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        performSearch();
+                    }
+                });
+            }
+            
+            // 侧边栏切换功能
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const sidebar = document.getElementById('sidebar');
+            
+            // 移除自动添加的类，让CSS hover效果控制侧边栏
+            document.body.classList.remove('sidebar-expanded');
+            document.body.classList.remove('sidebar-collapsed');
+            
+            // 切换侧边栏
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', () => {
+                    document.body.classList.toggle('sidebar-expanded');
+                    document.body.classList.toggle('sidebar-collapsed');
+                    
+                    // 保存侧边栏状态到本地存储
+                    if (document.body.classList.contains('sidebar-expanded')) {
+                        localStorage.setItem('sidebar', 'expanded');
+                    } else {
+                        localStorage.setItem('sidebar', 'collapsed');
+                    }
+                });
+            }
+            
+            // 根据当前页面设置侧边栏激活状态
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const sidebarLinks = document.querySelectorAll('.sidebar-nav li a');
+            
+            sidebarLinks.forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (linkPage === currentPage) {
+                    link.classList.add('active');
+                }
+            });
         });
     </script>
 </body>
